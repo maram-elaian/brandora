@@ -15,7 +15,7 @@ All criteria below are evaluated using the following 5-point scale:
 | **2** | Poor | Barely meets the requirement; has significant flaws or logical contradictions. |
 | **3** | Average | Acceptable, but generic or lacks strong, specific alignment with the brief. |
 | **4** | Good | Well-executed, clear alignment with the brief, and professionally presented. |
-| **5** | Excellent | Outstanding, highly creative, perfectly aligned, and ready for real-world use. |
+| **5** | Excellent | Outstanding, highly creative, strongly aligned with the brief, and professionally suitable. |
 
 ---
 
@@ -36,7 +36,8 @@ Evaluates the generated brand names based on the structured specification.
 | Criterion | Description |
 |---|---|
 | **Relevance** | Does the name fit the specific industry and target audience? |
-| **Memorability** | Is the name easy to remember, spell, and pronounce? |
+| **Memorability** | Is the name distinctive and easy to remember? |
+| **Pronunciation & Spellability** | Is the name easy to pronounce and spell correctly? |
 | **Creativity** | Is the name unique and non-generic, avoiding overused clichés? |
 | **Brand Fit** | Does the name evoke the desired brand personality and tone? |
 
