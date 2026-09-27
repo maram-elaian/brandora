@@ -18,7 +18,6 @@ def _load_qwen():
     return _model, _tokenizer
 
 def generate(system_prompt: str, user_prompt: str, max_new_tokens: int = 500) -> str:
-    """يرجّع النص الخام من Qwen3-8B، بدون تنظيف — كل موديل تاني بيقرر كيف يعالجه."""
     model, tokenizer = _load_qwen()
     messages = [
         {"role": "system", "content": system_prompt},
