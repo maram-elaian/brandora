@@ -1,1 +1,5 @@
-
+gradio
+torch
+transformers
+accelerate
+bitsandbytes
