@@ -2,7 +2,8 @@ import gradio as gr
 from src.brand_package import build_brand_package
 from src.name_generator import get_name
 from src.slogan_generator import get_slogan
-
+from src.logo_generator import generate_logo
+from src.logo_prompt import build_logo_prompt
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
         return "⚠️ عبّي الصناعة والجمهور المستهدف على الأقل", "", ""
