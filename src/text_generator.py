@@ -34,7 +34,13 @@ def generate(system_prompt: str, user_prompt: str, max_new_tokens: int = 500) ->
             return_tensors="pt", return_dict=True
         ).to(model.device)
 
-    outputs = model.generate(**inputs, max_new_tokens=max_new_tokens)
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=max_new_tokens,
+        do_sample=True,
+        temperature=0.9,
+        top_p=0.95,
+    )
     input_len = inputs["input_ids"].shape[-1]
     raw = tokenizer.decode(outputs[0][input_len:], skip_special_tokens=True)
     return re.sub(r'.*</think>\s*', '', raw, flags=re.DOTALL).strip()
