@@ -25,6 +25,7 @@ def generate_brand(industry, audience, personality, tone, purpose):
     traits = package.get("personality_traits", [])
     logo_prompt = build_logo_prompt(package)
     placeholder_image = generate_logo(logo_prompt)
+
     name_html = f"<h1 style='text-align:center; font-size:2.5em; margin:0;'>{name}</h1>"
     tagline_html = f"<p style='text-align:center; font-size:1.2em; color:#666; font-style:italic;'>{tagline}</p>"
 
@@ -48,7 +49,9 @@ def generate_brand(industry, audience, personality, tone, purpose):
     visual_style = package.get("visual_style", "—")
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
-    return result_html, details, None
+    return result_html, details, placeholder_image
+
+
 
 
 with gr.Blocks(theme=gr.themes.Soft(primary_hue="violet"), title="Brandora") as demo:
