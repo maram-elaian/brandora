@@ -23,7 +23,8 @@ def generate_brand(industry, audience, personality, tone, purpose):
     tagline = package.get("tagline", "—")
     colors = package.get("color_palette", [])
     traits = package.get("personality_traits", [])
-
+    logo_prompt = build_logo_prompt(package)
+    placeholder_image = generate_logo(logo_prompt)
     name_html = f"<h1 style='text-align:center; font-size:2.5em; margin:0;'>{name}</h1>"
     tagline_html = f"<p style='text-align:center; font-size:1.2em; color:#666; font-style:italic;'>{tagline}</p>"
 
