@@ -52,3 +52,38 @@ def build_brand_package(brief: dict) -> dict:
         return json.loads(match.group())
     except json.JSONDecodeError:
         return None
+BANNED_WORDS = [
+    "fresh", "pure", "smart", "prime", "elite", "nova", "zen",
+    "co.", "hub", "studio", "quality you can trust", "journey starts"
+]
+
+def _contains_banned_pattern(package: dict) -> bool:
+    text = f"{package.get('brand_name', '')} {package.get('tagline', '')}".lower()
+    return any(banned in text for banned in BANNED_WORDS)
+
+def build_brand_package(brief: dict, max_attempts: int = 3) -> dict:
+    user_prompt = (
+        f"Industry: {brief['industry']}\n"
+        f"Target Audience: {brief['target_audience']}\n"
+        f"Brand Purpose: {brief['brand_purpose']}\n"
+        f"Personality: {', '.join(brief['personality'])}\n"
+        f"Tone: {brief['tone']}"
+    )
+
+    for attempt in range(max_attempts):
+        raw = generate(SYSTEM_PROMPT, user_prompt)
+        raw = re.sub(r'```json\s*|```\s*', '', raw).strip()
+        match = re.search(r'\{.*\}', raw, flags=re.DOTALL)
+        if not match:
+            continue
+        try:
+            package = json.loads(match.group())
+        except json.JSONDecodeError:
+            continue
+
+        if not _contains_banned_pattern(package):
+            return package
+
+        print(f"   ⚠️ محاولة {attempt+1}: طلع نمط عام، بنعيد المحاولة...")
+
+    return package  # آخر محاولة حتى لو ما زبطت تماماً، أحسن من ولا شي
