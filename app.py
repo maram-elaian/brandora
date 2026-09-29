@@ -49,7 +49,7 @@ def generate_brand(industry, audience, personality, tone, purpose):
     visual_style = package.get("visual_style", "—")
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
-    return result_html, details, placeholder_image
+    return result_html, details, None
 
 
 
