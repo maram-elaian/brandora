@@ -2,8 +2,7 @@ import gradio as gr
 from src.brand_package import build_brand_package
 from src.name_generator import get_name
 from src.slogan_generator import get_slogan
-from src.logo_generator import generate_logo
-from src.logo_prompt import build_logo_prompt
+
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
         return "⚠️ عبّي الصناعة والجمهور المستهدف على الأقل", "", ""
@@ -23,8 +22,6 @@ def generate_brand(industry, audience, personality, tone, purpose):
     tagline = package.get("tagline", "—")
     colors = package.get("color_palette", [])
     traits = package.get("personality_traits", [])
-    logo_prompt = build_logo_prompt(package)
-    placeholder_image = generate_logo(logo_prompt)
 
     name_html = f"<h1 style='text-align:center; font-size:2.5em; margin:0;'>{name}</h1>"
     tagline_html = f"<p style='text-align:center; font-size:1.2em; color:#666; font-style:italic;'>{tagline}</p>"
@@ -50,8 +47,6 @@ def generate_brand(industry, audience, personality, tone, purpose):
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
     return result_html, details, None
-
-
 
 
 with gr.Blocks(theme=gr.themes.Soft(primary_hue="violet"), title="Brandora") as demo:
