@@ -1,3 +1,21 @@
+import os
+import torch, gc
+from huggingface_hub import login
+from diffusers import FluxPipeline, FluxTransformer2DModel, BitsAndBytesConfig as DiffusersBnBConfig
+from transformers import T5EncoderModel, BitsAndBytesConfig as TransformersBnBConfig
+
+_pipe = None
+
+def _load_flux():
+    global _pipe
+    if _pipe is None:
+        hf_token = os.environ.get("HF_TOKEN")
+        if hf_token:
+            login(token=hf_token)
+
+        model_id = "black-forest-labs/FLUX.1-schnell"
+        # ... (باقي الكود زي ما هو تماماً)
+
 import torch, gc
 from diffusers import FluxPipeline, FluxTransformer2DModel, BitsAndBytesConfig as DiffusersBnBConfig
 from transformers import T5EncoderModel, BitsAndBytesConfig as TransformersBnBConfig
