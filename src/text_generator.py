@@ -44,3 +44,12 @@ def generate(system_prompt: str, user_prompt: str, max_new_tokens: int = 500) ->
     input_len = inputs["input_ids"].shape[-1]
     raw = tokenizer.decode(outputs[0][input_len:], skip_special_tokens=True)
     return re.sub(r'.*</think>\s*', '', raw, flags=re.DOTALL).strip()
+
+def unload_qwen():
+    global _model, _tokenizer
+    if _model is not None:
+        del _model
+        del _tokenizer
+        _model = None
+        _tokenizer = None
+        torch.cuda.empty_cache()
