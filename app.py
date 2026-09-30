@@ -26,6 +26,8 @@ def generate_brand(industry, audience, personality, tone, purpose):
     unload_qwen()
     gc.collect()
     torch.cuda.empty_cache()
+    print(f"GPU بعد تفريغ Qwen: {torch.cuda.memory_allocated()/1e9:.2f} GB")
+   
 
     name = package.get("brand_name", "—")
     tagline = package.get("tagline", "—")
