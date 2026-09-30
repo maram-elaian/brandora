@@ -1,7 +1,9 @@
 import gradio as gr
+import torch, gc
 from src.brand_package import build_brand_package
 from src.name_generator import get_name
 from src.slogan_generator import get_slogan
+from src.text_generator import unload_qwen
 from src.logo_generator import generate_logo
 from src.logo_prompt import build_logo_prompt
 
@@ -19,6 +21,11 @@ def generate_brand(industry, audience, personality, tone, purpose):
     package = build_brand_package(brief)
     if package is None:
         return "❌ فشل التوليد، جربي مرة ثانية", "", None
+
+    # فرّغي Qwen3-8B من الذاكرة قبل ما نحمّل FLUX
+    unload_qwen()
+    gc.collect()
+    torch.cuda.empty_cache()
 
     name = package.get("brand_name", "—")
     tagline = package.get("tagline", "—")
@@ -48,7 +55,7 @@ def generate_brand(industry, audience, personality, tone, purpose):
     visual_style = package.get("visual_style", "—")
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
-    # --- الجزء الجديد: توليد اللوجو فعلياً بدل الـ placeholder ---
+    # توليد اللوجو فعلياً عبر FLUX
     logo_prompt = build_logo_prompt(package)
     logo_image = generate_logo(logo_prompt)
 
