@@ -2,10 +2,12 @@ import gradio as gr
 from src.brand_package import build_brand_package
 from src.name_generator import get_name
 from src.slogan_generator import get_slogan
+from src.logo_generator import generate_logo
+from src.logo_prompt import build_logo_prompt
 
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
-        return "⚠️ عبّي الصناعة والجمهور المستهدف على الأقل", "", ""
+        return "⚠️ عبّي الصناعة والجمهور المستهدف على الأقل", "", None
 
     brief = {
         "industry": industry,
@@ -16,7 +18,7 @@ def generate_brand(industry, audience, personality, tone, purpose):
     }
     package = build_brand_package(brief)
     if package is None:
-        return "❌ فشل التوليد، جربي مرة ثانية", "", ""
+        return "❌ فشل التوليد، جربي مرة ثانية", "", None
 
     name = package.get("brand_name", "—")
     tagline = package.get("tagline", "—")
@@ -46,7 +48,11 @@ def generate_brand(industry, audience, personality, tone, purpose):
     visual_style = package.get("visual_style", "—")
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
-    return result_html, details, None
+    # --- الجزء الجديد: توليد اللوجو فعلياً بدل الـ placeholder ---
+    logo_prompt = build_logo_prompt(package)
+    logo_image = generate_logo(logo_prompt)
+
+    return result_html, details, logo_image
 
 
 with gr.Blocks(theme=gr.themes.Soft(primary_hue="violet"), title="Brandora") as demo:
@@ -71,7 +77,7 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="violet"), title="Brandora") as 
             gr.Markdown("#### النتيجة")
             result_display = gr.HTML()
             details_display = gr.Markdown()
-            logo_display = gr.Image(label="اللوجو (قريباً)", height=300)
+            logo_display = gr.Image(label="اللوجو", height=300)
 
     gr.Examples(
         examples=[
