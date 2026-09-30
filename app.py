@@ -1,11 +1,21 @@
 import gradio as gr
-import torch, gc
-from src.brand_package import build_brand_package
-from src.name_generator import get_name
-from src.slogan_generator import get_slogan
-from src.text_generator import unload_qwen
+import subprocess, sys, json, os
 from src.logo_generator import generate_logo
 from src.logo_prompt import build_logo_prompt
+
+
+def get_brand_package(brief: dict):
+    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts", "run_text_gen.py")
+    result = subprocess.run(
+        [sys.executable, script_path, json.dumps(brief)],
+        capture_output=True, text=True
+    )
+    for line in result.stdout.splitlines():
+        if line.startswith("RESULT_JSON:"):
+            return json.loads(line[len("RESULT_JSON:"):])
+    print("STDERR:", result.stderr)  # للتشخيص لو فشل
+    return None
+
 
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
@@ -18,14 +28,9 @@ def generate_brand(industry, audience, personality, tone, purpose):
         "personality": [p.strip() for p in personality.split(",") if p.strip()],
         "tone": tone,
     }
-    package = build_brand_package(brief)
+    package = get_brand_package(brief)
     if package is None:
         return "❌ فشل التوليد، جربي مرة ثانية", "", None
-
-    # فرّغي Qwen3-8B من الذاكرة قبل ما نحمّل FLUX
-    unload_qwen()
-    gc.collect()
-    torch.cuda.empty_cache()
 
     name = package.get("brand_name", "—")
     tagline = package.get("tagline", "—")
@@ -55,7 +60,7 @@ def generate_brand(industry, audience, personality, tone, purpose):
     visual_style = package.get("visual_style", "—")
     details = f"**الخط المقترح:** {typography}\n\n**الستايل البصري:** {visual_style}"
 
-    # توليد اللوجو فعلياً عبر FLUX
+    # توليد اللوجو فعلياً عبر FLUX (بنفس العملية الرئيسية، بعد ما Qwen خلص وقفل تماماً)
     logo_prompt = build_logo_prompt(package)
     logo_image = generate_logo(logo_prompt)
 
