@@ -15,7 +15,7 @@ def get_brand_package(brief: dict):
             return json.loads(line[len("RESULT_JSON:"):])
     print("STDERR:", result.stderr)  # للتشخيص لو فشل
     return None
-
+print("DEBUG COLORS:", package.get("color_palette"))
 
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
@@ -39,7 +39,13 @@ def generate_brand(industry, audience, personality, tone, purpose):
 
     name_html = f"<h1 style='text-align:center; font-size:2.5em; margin:0;'>{name}</h1>"
     tagline_html = f"<p style='text-align:center; font-size:1.2em; color:#666; font-style:italic;'>{tagline}</p>"
+    import re
 
+    def _is_valid_hex(color):
+        return bool(re.match(r'^#[0-9A-Fa-f]{6}$', str(color).strip()))
+
+    colors = package.get("color_palette", [])
+    colors = [c if _is_valid_hex(c) else "#CCCCCC" for c in colors]  # رمادي احتياطي بدل فاضي
     swatches = "".join(
         f"<div style='display:inline-block; width:60px; height:60px; "
         f"background:{c}; border-radius:8px; margin:4px; border:1px solid #ddd;' "

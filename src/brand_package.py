@@ -30,7 +30,7 @@ You MUST reply ONLY in valid JSON with EXACTLY this structure:
 {
   "brand_name": "string",
   "tagline": "string",
-  "color_palette": ["color1", "color2", "color3"],
+  ""color_palette": ["#RRGGBB", "#RRGGBB", "#RRGGBB"],
   "typography": "string",
   "visual_style": "string",
   "personality_traits": ["trait1", "trait2", "trait3"]
