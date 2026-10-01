@@ -15,7 +15,6 @@ def get_brand_package(brief: dict):
             return json.loads(line[len("RESULT_JSON:"):])
     print("STDERR:", result.stderr)  # للتشخيص لو فشل
     return None
-print("DEBUG COLORS:", package.get("color_palette"))
 
 def generate_brand(industry, audience, personality, tone, purpose):
     if not industry or not audience:
@@ -31,6 +30,10 @@ def generate_brand(industry, audience, personality, tone, purpose):
     package = get_brand_package(brief)
     if package is None:
         return "❌ فشل التوليد، جربي مرة ثانية", "", None
+
+    print("DEBUG COLORS:", package.get("color_palette"))  # هنا بالضبط
+
+    name = package.get("brand_name", "—")
 
     name = package.get("brand_name", "—")
     tagline = package.get("tagline", "—")
