@@ -5,7 +5,7 @@ from src.logo_prompt import build_logo_prompt
 
 
 def get_brand_package(brief: dict):
-    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts", "run_text_gen.py")
+    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "run_text_gen.py")
     result = subprocess.run(
         [sys.executable, script_path, json.dumps(brief)],
         capture_output=True, text=True
