@@ -56,19 +56,16 @@ def _strip_thinking(text: str) -> str:
     """
     text = text.strip()
 
-    # الحالة الطبيعية: < think>...< /think> JSON
-    if "" in text:
-        text = text.split("", 1)[1]
+    if "</think>" in text:
+        text = text.split("</think>", 1)[1]
 
-    # في حال كان هناك think tag بدون closing tag
     text = re.sub(
-        r"< think>.*?(?:< /think>|$)",
+        r"<think>.*?(?:</think>|$)",
         "",
         text,
         flags=re.DOTALL | re.IGNORECASE,
     ).strip()
 
-    # إزالة أي tags متبقية
     text = re.sub(r"</?think>", "", text, flags=re.IGNORECASE).strip()
 
     return text
