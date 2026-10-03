@@ -201,6 +201,7 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
     packages = []
     used_names = set()
     used_keys = set()
+    used_prefixes = set()  # جديد
 
     for i in range(n + 2):
         if len(packages) >= n:
@@ -226,7 +227,13 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
         if key in used_keys:
             continue
 
+        # جديد: رفض الأسماء يلي تشارك نفس أول 4 أحرف (جذر مشابه)
+        name_prefix = brand_name[:4] if len(brand_name) >= 4 else brand_name
+        if name_prefix in used_prefixes:
+            continue
+
         used_keys.add(key)
+        used_prefixes.add(name_prefix)
 
         if brand_name:
             used_names.add(brand_name)
