@@ -201,16 +201,11 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
     used_names = set()
     used_keys = set()
 
-    # نحاول أكثر من n مرة حتى لو بعض المحاولات طلعت مكررة أو فاشلة
-    for _ in range(max(n * 5, 10)):
+    for _ in range(n + 2):   # بدل max(n*5, 10)
         if len(packages) >= n:
             break
+        package = build_brand_package(brief, max_attempts=2, avoid_names=used_names)  # بدل 4
 
-        package = build_brand_package(
-            brief,
-            max_attempts=4,
-            avoid_names=used_names
-        )
 
         if not package:
             continue
