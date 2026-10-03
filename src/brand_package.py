@@ -57,7 +57,6 @@ def _contains_banned_pattern(package: dict) -> bool:
 def _parse_json_response(raw: str):
     raw = re.sub(r"```json\s*|```\s*", "", raw).strip()
 
-    # أحياناً模型 قد ترجع list بدل dict
     try:
         data = json.loads(raw)
         if isinstance(data, list) and data and isinstance(data[0], dict):
@@ -128,8 +127,9 @@ def _normalize_package(package):
 
 def build_brand_package(
     brief: dict,
-    max_attempts: int = 4,
-    avoid_names=None
+    max_attempts: int = 2,
+    avoid_names=None,
+    seed=None,
 ) -> dict:
     avoid_names = avoid_names or set()
 
@@ -174,6 +174,7 @@ def build_brand_package(
             temperature=0.95,
             top_p=0.95,
             repetition_penalty=1.06,
+            seed=seed,
         )
 
         package = _normalize_package(_parse_json_response(raw))
@@ -201,11 +202,16 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
     used_names = set()
     used_keys = set()
 
-    for _ in range(n + 2):   # بدل max(n*5, 10)
+    for i in range(n + 2):
         if len(packages) >= n:
             break
-        package = build_brand_package(brief, max_attempts=2, avoid_names=used_names)  # بدل 4
 
+        package = build_brand_package(
+            brief,
+            max_attempts=2,
+            avoid_names=used_names,
+            seed=i * 1000 + 7,
+        )
 
         if not package:
             continue
@@ -217,7 +223,6 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
         tagline = package.get("tagline", "").strip().lower()
         key = (brand_name, tagline)
 
-        # منع تكرار نفس الاسم + نفس التاغلاين
         if key in used_keys:
             continue
 
