@@ -190,15 +190,27 @@ def _package_to_html(package: dict) -> str:
     )
 
 
-def generate_options(industry, audience, personality, tone, purpose):
-    """
-    يولّد 3 اقتراحات هوية بصرية.
+import time
 
-    outputs:
-    status, packages_state, card1, card2, card3, choose1, choose2, choose3
-    """
+LOADING_MESSAGES = [
+    "🧠 عم نحلّل وصف البراند...",
+    "✨ عم نولّد أسماء إبداعية...",
+    "🎨 عم نختار الألوان المناسبة...",
+]
+
+
+def generate_options(industry, audience, personality, tone, purpose):
     if not industry or not audience:
-        return _empty_ui("⚠️ عبّي الصناعة والجمهور المستهدف على الأقل")
+        yield "⚠️ عبّي الصناعة والجمهور المستهدف على الأقل", [], \
+              gr.update(value="", visible=False), gr.update(value="", visible=False), gr.update(value="", visible=False), \
+              gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
+        return
+
+    for msg in LOADING_MESSAGES:
+        yield msg, [], \
+              gr.update(value="", visible=False), gr.update(value="", visible=False), gr.update(value="", visible=False), \
+              gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
+        time.sleep(1)
 
     brief = {
         "industry": industry,
@@ -210,49 +222,33 @@ def generate_options(industry, audience, personality, tone, purpose):
 
     packages = get_brand_packages(brief)
 
-    # فلترة أي نتائج فاضية أو غير صالحة
     packages = [
         p for p in packages
         if isinstance(p, dict) and (p.get("brand_name") or p.get("tagline"))
     ]
 
     if not packages:
-        return _empty_ui("❌ فشل التوليد، جربي مرة ثانية")
+        yield "❌ فشل التوليد، جربي مرة ثانية", [], \
+              gr.update(value="", visible=False), gr.update(value="", visible=False), gr.update(value="", visible=False), \
+              gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
+        return
 
     if len(packages) >= 3:
         status = ""
     else:
-        status = (
-            f"⚠️ تم توليد {len(packages)} اقتراحات فقط. "
-            "جربي مرة ثانية للحصول على 3 اقتراحات مختلفة."
-        )
+        status = f"⚠️ تم توليد {len(packages)} اقتراحات فقط. جربي مرة ثانية للحصول على 3."
 
     cards = []
     buttons = []
-
     for i in range(3):
         if i < len(packages):
-            cards.append(
-                gr.update(
-                    value=_package_to_html(packages[i]),
-                    visible=True
-                )
-            )
+            cards.append(gr.update(value=_package_to_html(packages[i]), visible=True))
             buttons.append(gr.update(visible=True))
         else:
             cards.append(gr.update(value="", visible=False))
             buttons.append(gr.update(visible=False))
 
-    return (
-        status,
-        packages,
-        cards[0],
-        cards[1],
-        cards[2],
-        buttons[0],
-        buttons[1],
-        buttons[2],
-    )
+    yield status, packages, cards[0], cards[1], cards[2], buttons[0], buttons[1], buttons[2]
 
 
 def choose_package(packages, index):
@@ -290,18 +286,19 @@ def choose_package(packages, index):
 
 
 def generate_logo_only(package):
-    """
-    يولّد اللوجو فقط بعد اختيار باكدج.
-    """
-    if not package:
-        return None
+    if package is None:
+        yield None
+        return
+
+    yield None  # (بيخلي الصورة فاضية لحظة الانتظار، الحالة النصية بمكان تاني)
 
     try:
         logo_prompt = build_logo_prompt(package)
-        return generate_logo(logo_prompt)
+        logo = generate_logo(logo_prompt)
+        yield logo
     except Exception as e:
         print("Logo generation error:", e)
-        return None
+        yield None
 def export_kit(package, logo_image):
     if package is None:
         return None, gr.update(visible=False)
