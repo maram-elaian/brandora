@@ -204,7 +204,7 @@ def generate_options(industry, audience, personality, tone, purpose):
         "industry": industry,
         "target_audience": audience,
         "brand_purpose": purpose,
-        "personality": [p.strip() for p in personality.split(",") if p.strip()],
+        "personality": personality,
         "tone": tone,
     }
 
@@ -335,13 +335,14 @@ with gr.Blocks(
             label="هدف البراند",
             placeholder="مثال: مكان مريح للدراسة والتجمع"
         )
-        personality = gr.Textbox(
-            label="الشخصية (مفصولة بفاصلة)",
-            placeholder="modern, friendly, energetic"
+        personality = gr.CheckboxGroup(
+            choices=["modern", "playful", "elegant", "bold", "warm", "minimalist",
+                     "energetic", "trustworthy", "luxurious", "friendly", "rebellious", "calm"],
+            label="الشخصية (اختاري أكتر من وحدة)",
         )
-        tone = gr.Textbox(
-            label="النبرة",
-            placeholder="casual"
+        tone = gr.Dropdown(
+            choices=["casual", "formal", "playful", "sophisticated", "friendly", "bold"],
+            label="النبرة", value="casual",
         )
 
     name_btn = gr.Button(
