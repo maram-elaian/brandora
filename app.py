@@ -279,8 +279,9 @@ def choose_package(packages, index):
 
     return (
         chosen,
-        f"✅ اخترتي: {brand_name}",
+        f"✅ اخترت: {brand_name}",
         details,
+        gr.update(visible=True),
         gr.update(visible=True),
     )
 
@@ -311,7 +312,7 @@ with gr.Blocks(
 ) as demo:
     gr.Markdown(
         """
-        # 🎨 Brandora
+        #   •*´¨`*•.¸¸.•*´¨Brandora`*•.¸¸.•*´¨`*•.¸¸.•*
         ### مولّد الهوية البصرية بالذكاء الاصطناعي
         """
     )
@@ -339,7 +340,7 @@ with gr.Blocks(
         personality = gr.CheckboxGroup(
             choices=["modern", "playful", "elegant", "bold", "warm", "minimalist",
                      "energetic", "trustworthy", "luxurious", "friendly", "rebellious", "calm"],
-            label="الشخصية (اختاري أكتر من وحدة)",
+            label="الشخصية (اختار أكتر من وحدة)",
         )
         tone = gr.Dropdown(
             choices=["casual", "formal", "playful", "sophisticated", "friendly", "bold"],
@@ -354,20 +355,20 @@ with gr.Blocks(
 
     status = gr.Markdown()
 
-    gr.Markdown("#### اختاري الاقتراح اللي عجبك")
+    gr.Markdown("#### اختار الاقتراح اللي عجبك")
 
     with gr.Row():
         with gr.Column():
             card1 = gr.HTML(visible=False)
-            choose1 = gr.Button("اختاري هذا ✓", visible=False)
+            choose1 = gr.Button("اختار هذا ✓", visible=False)
 
         with gr.Column():
             card2 = gr.HTML(visible=False)
-            choose2 = gr.Button("اختاري هذا ✓", visible=False)
+            choose2 = gr.Button("اختار هذا ✓", visible=False)
 
         with gr.Column():
             card3 = gr.HTML(visible=False)
-            choose3 = gr.Button("اختاري هذا ✓", visible=False)
+            choose3 = gr.Button("اختار هذا ✓", visible=False)
 
     gr.Markdown("#### النتيجة النهائية")
 
@@ -383,7 +384,8 @@ with gr.Blocks(
         label="اللوجو",
         height=300
     )
-
+    export_btn = gr.Button("📦 حمّلي Brand Kit", variant="secondary", visible=False)
+    export_file = gr.Image(label="Brand Kit", visible=False, type="pil")
     gr.Examples(
         examples=[
             [
@@ -419,30 +421,22 @@ with gr.Blocks(
         ],
     )
 
-    choose1.click(
-        fn=lambda pkgs: choose_package(pkgs, 0),
-        inputs=[packages_state],
-        outputs=[chosen_package_state, status, details_display, logo_btn],
-    )
-
-    choose2.click(
-        fn=lambda pkgs: choose_package(pkgs, 1),
-        inputs=[packages_state],
-        outputs=[chosen_package_state, status, details_display, logo_btn],
-    )
-
-    choose3.click(
-        fn=lambda pkgs: choose_package(pkgs, 2),
-        inputs=[packages_state],
-        outputs=[chosen_package_state, status, details_display, logo_btn],
-    )
-
+    choose1.click(fn=lambda pkgs: choose_package(pkgs, 0), inputs=[packages_state],
+                  outputs=[chosen_package_state, status, details_display, logo_btn, export_btn])
+    choose2.click(fn=lambda pkgs: choose_package(pkgs, 1), inputs=[packages_state],
+                  outputs=[chosen_package_state, status, details_display, logo_btn, export_btn])
+    choose3.click(fn=lambda pkgs: choose_package(pkgs, 2), inputs=[packages_state],
+                  outputs=[chosen_package_state, status, details_display, logo_btn, export_btn])
     logo_btn.click(
         fn=generate_logo_only,
         inputs=[chosen_package_state],
         outputs=[logo_display],
     )
-
+    export_btn.click(
+    fn=export_kit,
+    inputs=[chosen_package_state, logo_display],
+    outputs=[export_file, export_file],
+    )
 
 if __name__ == "__main__":
     demo.launch(share=True)
