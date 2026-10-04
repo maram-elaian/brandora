@@ -13,7 +13,7 @@ if BASE_DIR not in sys.path:
 
 from src.logo_generator import generate_logo
 from src.logo_prompt import build_logo_prompt
-
+from src.brand_kit_export import export_brand_kit
 
 COLOR_RE = re.compile(r"#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}")
 
@@ -302,7 +302,11 @@ def generate_logo_only(package):
     except Exception as e:
         print("Logo generation error:", e)
         return None
-
+def export_kit(package, logo_image):
+    if package is None:
+        return None, gr.update(visible=False)
+    kit_image = export_brand_kit(package, logo_image)
+    return kit_image, gr.update(visible=True)
 
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="violet"),
