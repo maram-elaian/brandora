@@ -1,7 +1,6 @@
 import gradio as gr
-import subprocess
+
 import sys
-import json
 import os
 import re
 import html
@@ -15,51 +14,17 @@ if BASE_DIR not in sys.path:
 from src.logo_generator import generate_logo
 from src.logo_prompt import build_logo_prompt
 from src.brand_kit_export import export_brand_kit
+from src.brand_package import build_brand_packages
 
 COLOR_RE = re.compile(r"#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}")
 
 
 def get_brand_packages(brief: dict):
-    """
-    يشغّل src/run_text_gen.py ويستخرج RESULT_JSON.
-    يقبل:
-    RESULT_JSON:[{...}, {...}, {...}]
-    أو:
-    RESULT_JSON:{"packages": [{...}, {...}, {...}]}
-    """
-    script_path = os.path.join(BASE_DIR, "src", "run_text_gen.py")
-
     try:
-        result = subprocess.run(
-            [sys.executable, script_path, json.dumps(brief, ensure_ascii=False)],
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-        )
+        return build_brand_packages(brief, n=3)
     except Exception as e:
-        print("Subprocess error:", e)
+        print("Brand package generation error:", e)
         return []
-
-    for line in result.stdout.splitlines():
-        if line.startswith("RESULT_JSON:"):
-            payload = line[len("RESULT_JSON:"):].strip()
-            try:
-                data = json.loads(payload)
-
-                if isinstance(data, dict) and "packages" in data:
-                    data = data["packages"]
-
-                if isinstance(data, list):
-                    return [p for p in data if isinstance(p, dict)]
-
-            except json.JSONDecodeError:
-                continue
-
-    if result.stderr:
-        print("STDERR:", result.stderr[-1000:])
-
-    return []
 
 
 def _empty_ui(status_text: str = ""):
