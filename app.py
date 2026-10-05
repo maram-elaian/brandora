@@ -312,7 +312,7 @@ with gr.Blocks(
 ) as demo:
     gr.Markdown(
         """
-        #   •*´¨`*•.¸¸.•* Brandora *•.¸¸.•*´¨`*•.¸¸.•*
+        #  ✦. ⊹ ˚ .꒰ Brandora ꒱ ‧₊˚★
         ### مولّد الهوية البصرية بالذكاء الاصطناعي
         """
     )
@@ -380,12 +380,9 @@ with gr.Blocks(
         visible=False
     )
 
-    logo_display = gr.Image(
-        label="اللوجو",
-        height=300
-    )
+    logo_display = gr.Image(label="اللوجو", height=300, interactive=False)
     export_btn = gr.Button("📦 حمّلي Brand Kit", variant="secondary", visible=False)
-    export_file = gr.Image(label="Brand Kit", visible=False, type="pil")
+    export_file = gr.Image(label="Brand Kit", visible=False, type="pil", interactive=False)
     gr.Examples(
         examples=[
             [
