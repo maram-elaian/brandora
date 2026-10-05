@@ -34,7 +34,7 @@ def export_brand_kit(package: dict, logo_image):
     # -------------------------
     y = 80
 
-    if logo_image:
+    if logo_image is not None:
         logo_resized = logo_image.resize(
             (600, 600),
             Image.Resampling.LANCZOS
