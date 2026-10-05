@@ -1,19 +1,22 @@
 from PIL import Image, ImageDraw, ImageFont
 import re
-
+from matplotlib import font_manager
 
 def export_brand_kit(package: dict, logo_image):
-    W, H = 900, 1200
+    W, H = 1800, 2400
     card = Image.new("RGB", (W, H), "white")
     draw = ImageDraw.Draw(card)
 
-    font_title = ImageFont.load_default()
-    font_body = ImageFont.load_default()
-    font_small = ImageFont.load_default()
+    font_regular = font_manager.findfont("DejaVu Sans")
+    font_bold = font_manager.findfont("DejaVu Sans:style=bold")
+
+    font_title = ImageFont.truetype(font_bold, 96)
+    font_body = ImageFont.truetype(font_regular, 48)
+    font_small = ImageFont.truetype(font_regular, 36)
 
     y = 40
     if logo_image:
-        logo_resized = logo_image.resize((300, 300))
+        logo_resized = logo_image.resize((600, 600))
         card.paste(logo_resized, (W // 2 - 150, y))
         y += 320
 
