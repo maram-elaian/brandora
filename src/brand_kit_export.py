@@ -7,9 +7,9 @@ def export_brand_kit(package: dict, logo_image):
     card = Image.new("RGB", (W, H), "white")
     draw = ImageDraw.Draw(card)
 
-    font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
-    font_body = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
-    font_small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
+    font_title = ImageFont.load_default()
+    font_body = ImageFont.load_default()
+    font_small = ImageFont.load_default()
 
     y = 40
     if logo_image:
