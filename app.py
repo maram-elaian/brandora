@@ -449,7 +449,7 @@ with gr.Blocks(
     export_btn.click(
     fn=export_kit,
     inputs=[chosen_package_state, logo_display],
-    outputs=[export_file, export_file],
+        outputs=export_file,
     )
 
 if __name__ == "__main__":
