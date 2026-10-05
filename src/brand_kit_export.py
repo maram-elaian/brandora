@@ -1,8 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import re
 from matplotlib import font_manager
-
-
+from src.logo_prompt import _extract_hex, _extract_color_label
 def export_brand_kit(package: dict, logo_image):
     # High-resolution Brand Kit
     W, H = 1800, 2400
@@ -87,32 +86,27 @@ def export_brand_kit(package: dict, logo_image):
     colors = package.get("color_palette", [])
 
     box_size = 120
-    gap = 20
+    gap = 40
 
-    valid_colors = []
+    color_data = []
 
-    for c in colors:
-        match = re.search(
-            r'#[0-9A-Fa-f]{6}',
-            str(c)
-        )
+    for c in colors[:5]:
+        hex_code = _extract_hex(c)
+        label = _extract_color_label(c)
 
-        if match:
-            valid_colors.append(
-                match.group(0)
-            )
+        color_data.append((hex_code, label))
 
     total_width = (
-        len(valid_colors) * box_size
-        + max(0, len(valid_colors) - 1) * gap
+            len(color_data) * box_size
+            + max(0, len(color_data) - 1) * gap
     )
 
     x_start = (W - total_width) // 2
 
-    for i, hex_code in enumerate(valid_colors):
-
+    for i, (hex_code, label) in enumerate(color_data):
         x = x_start + i * (box_size + gap)
 
+        # Color swatch
         draw.rounded_rectangle(
             [
                 x,
@@ -126,8 +120,25 @@ def export_brand_kit(package: dict, logo_image):
             width=3
         )
 
-    y += 190
+        # Color name
+        draw.text(
+            (x + box_size // 2, y + box_size + 35),
+            label,
+            font=font_small,
+            fill="black",
+            anchor="ma"
+        )
 
+        # HEX code
+        draw.text(
+            (x + box_size // 2, y + box_size + 80),
+            hex_code,
+            font=font_small,
+            fill="#666666",
+            anchor="ma"
+        )
+
+    y += 300
     # -------------------------
     # Typography
     # -------------------------

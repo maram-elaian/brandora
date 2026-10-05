@@ -5,6 +5,7 @@ import json
 import os
 import re
 import html
+import tempfile
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -302,9 +303,22 @@ def generate_logo_only(package):
         yield None
 def export_kit(package, logo_image):
     if package is None:
-        return None, gr.update(visible=False)
+        return None
+
     kit_image = export_brand_kit(package, logo_image)
-    return kit_image, gr.update(visible=True)
+
+    pdf_path = os.path.join(
+        tempfile.gettempdir(),
+        "Brandora_Brand_Kit.pdf"
+    )
+
+    kit_image.save(
+        pdf_path,
+        "PDF",
+        resolution=300.0
+    )
+
+    return pdf_path
 
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="violet"),
@@ -381,8 +395,11 @@ with gr.Blocks(
     )
 
     logo_display = gr.Image(label="اللوجو", height=300, interactive=False)
-    export_btn = gr.Button("📦 حمّلي Brand Kit", variant="secondary", visible=False)
-    export_file = gr.Image(label="Brand Kit", visible=False, type="pil", interactive=False)
+    export_btn = gr.Button("📦 حمّل Brand Kit", variant="secondary", visible=False)
+    export_file = gr.File(
+        label="📄 تحميل Brand Kit PDF",
+        visible=False
+    )
     gr.Examples(
         examples=[
             [
