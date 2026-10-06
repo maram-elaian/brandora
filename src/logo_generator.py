@@ -57,7 +57,8 @@ def _load_flux():
 def _run(pipe, prompt, size):
     with torch.inference_mode():
         return pipe(
-            prompt,
+            prompt=prompt[:200],      # CLIP (يقبل 77 توكن فقط)
+            prompt_2=prompt,          # T5 (يقبل الطويل)
             height=size, width=size,
             num_inference_steps=4,
             guidance_scale=0.0,

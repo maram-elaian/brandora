@@ -303,24 +303,48 @@ def generate_logo_only(package):
         )
 
 
-def export_kit(package, logo_image):
-    if package is None:
+import numpy as np
+from PIL import Image
+
+def _to_pil(img):
+    """يحوّل أي نوع مدخل من Gradio إلى PIL Image."""
+    if img is None:
         return None
 
-    kit_image = export_brand_kit(package, logo_image)
+    # tuple أو list: خذ أول عنصر صالح
+    if isinstance(img, (tuple, list)):
+        img = img[0]
 
-    pdf_path = os.path.join(
-        tempfile.gettempdir(),
-        "Brandora_Brand_Kit.pdf"
-    )
+    # dict (بعض إصدارات Gradio): فيه path
+    if isinstance(img, dict):
+        img = img.get("path") or img.get("name") or img.get("url")
 
-    kit_image.save(
-        pdf_path,
-        "PDF",
-        resolution=300.0
-    )
+    if isinstance(img, Image.Image):
+        return img.convert("RGB")
 
-    return pdf_path
+    if isinstance(img, np.ndarray):
+        return Image.fromarray(img).convert("RGB")
+
+    if isinstance(img, str):
+        return Image.open(img).convert("RGB")
+
+    raise TypeError(f"نوع صورة غير مدعوم: {type(img)}")
+
+
+def export_kit(package, logo_image):
+    if package is None:
+        return gr.update(visible=False)
+
+    logo_pil = _to_pil(logo_image)
+    if logo_pil is None:
+        return gr.update(visible=False)
+
+    kit_image = export_brand_kit(package, logo_pil)
+
+    pdf_path = os.path.join(tempfile.gettempdir(), "Brandora_Brand_Kit.pdf")
+    kit_image.convert("RGB").save(pdf_path, "PDF", resolution=300.0)
+
+    return gr.update(value=pdf_path, visible=True)
 
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="violet"),
@@ -398,9 +422,12 @@ with gr.Blocks(
 
     logo_status = gr.Markdown()
 
-
-
-    logo_display = gr.Image(label="اللوجو", height=300, interactive=False)
+    logo_display = gr.Image(
+        label="اللوجو",
+        height=300,
+        interactive=False,
+        type="pil",
+    )
     export_btn = gr.Button("📦 حمّل Brand Kit", variant="secondary", visible=False)
     export_file = gr.File(
         label="📄 تحميل Brand Kit PDF",
