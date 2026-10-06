@@ -1,7 +1,7 @@
 import json
 import re
 
-from src.text_generator import generate
+from src.text_generator import generate, unload_qwen
 
 
 SYSTEM_PROMPT = """You are an award-winning brand naming strategist. Your names win
@@ -240,4 +240,5 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
 
         packages.append(package)
 
+    unload_qwen()
     return packages
