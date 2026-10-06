@@ -26,7 +26,7 @@ def export_brand_kit(package: dict, logo_image):
 
     font_title = ImageFont.truetype(font_bold, 96)
     font_body = ImageFont.truetype(font_regular, 48)
-    font_small = ImageFont.truetype(font_regular, 36)
+    font_small = ImageFont.truetype(font_regular, 28)
 
     # Logo
     y = 80

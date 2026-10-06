@@ -32,6 +32,15 @@ Given a brand brief, generate ONE complete Brand Specification.
 Each color in color_palette MUST include both the hex code AND a short descriptive
 name, in this exact format: "#RRGGBB descriptive name" (e.g. "#8B5A2B warm terracotta").
 
+LOGO CONCEPT RULES:
+- logo_concept: ONE concrete visual metaphor, max 15 words, describing a single
+  symbol made of real objects (e.g. "a coffee cup whose steam curls into an open book").
+  Never abstract words like "innovation" or "community". Combine two unrelated
+  objects into one symbol when possible.
+- logo_shape_language: choose exactly ONE of: "circular and soft", "sharp triangles",
+  "interlocking geometric shapes", "negative-space silhouette",
+  "continuous single line", "stacked rounded blocks", "symmetrical emblem".
+  
 You MUST reply ONLY in valid JSON with EXACTLY this structure:
 {
   "brand_name": "string",
@@ -39,7 +48,9 @@ You MUST reply ONLY in valid JSON with EXACTLY this structure:
   "color_palette": ["#RRGGBB descriptive name", "#RRGGBB descriptive name", "#RRGGBB descriptive name"],
   "typography": "string",
   "visual_style": "string",
-  "personality_traits": ["trait1", "trait2", "trait3"]
+  "personality_traits": ["trait1", "trait2", "trait3"],
+  "logo_concept": "string",
+  "logo_shape_language": "string"
 }"""
 
 
@@ -77,6 +88,8 @@ def _parse_json_response(raw: str):
 
 
 def _normalize_package(package):
+    package.setdefault("logo_concept", "")
+    package.setdefault("logo_shape_language", "")
     if not isinstance(package, dict):
         return None
 

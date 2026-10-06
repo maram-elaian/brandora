@@ -54,15 +54,21 @@ def _load_flux():
     return _pipe
 
 
+import random
+
 def _run(pipe, prompt, size):
+    seed = random.randint(0, 2**31 - 1)
+    generator = torch.Generator("cpu").manual_seed(seed)
+    print("LOGO SEED:", seed, "| PROMPT:", prompt)   # عشان تعرفي أي seed طلع أحلى
     with torch.inference_mode():
         return pipe(
-            prompt=prompt[:200],      # CLIP (يقبل 77 توكن فقط)
-            prompt_2=prompt,          # T5 (يقبل الطويل)
+            prompt=prompt[:200],
+            prompt_2=prompt,
             height=size, width=size,
-            num_inference_steps=4,
+            num_inference_steps=6,
             guidance_scale=0.0,
             max_sequence_length=256,
+            generator=generator,
         ).images[0]
 
 

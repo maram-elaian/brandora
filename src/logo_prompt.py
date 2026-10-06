@@ -1,5 +1,5 @@
 import re
-
+import random
 
 COLOR_RE = re.compile(r"#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}")
 
@@ -42,48 +42,50 @@ def _extract_color_label(color) -> str:
     return color_str or "—"
 
 
+STYLE_VARIANTS = [
+    "bold geometric mark with solid shapes and a strong silhouette",
+    "clever negative space design with a hidden shape, two-tone",
+    "continuous single line art mark",
+    "modern symmetrical emblem with thick clean outlines",
+    "friendly rounded symbol, simple and memorable",
+    "abstract symbol built from basic geometric forms",
+]
+
+
 def build_logo_prompt(package: dict, include_text: bool = False) -> str:
-    brand_name = package.get("brand_name") or "Brand"
-    visual_style = package.get("visual_style") or "minimalist modern brand identity"
-    typography = package.get("typography") or "clean geometric typography mood"
-    traits = package.get("personality_traits") or []
+    concept = (package.get("logo_concept") or "").strip()
+    if not concept:
+        concept = (package.get("visual_style") or "a simple memorable symbol").strip()
 
-    if isinstance(traits, str):
-        traits = [t.strip() for t in traits.split(",") if t.strip()]
+    shapes = (package.get("logo_shape_language") or "geometric").strip()
 
+    # أسماء الألوان فقط، بدون hex
     raw_colors = package.get("color_palette") or []
-
-    if isinstance(raw_colors, str):
+    if isinstance(raw_colors, (str, dict)):
         raw_colors = [raw_colors]
 
-    if isinstance(raw_colors, dict):
-        raw_colors = [raw_colors]
-
-    color_parts = []
-
-    for c in raw_colors:
-        hex_code = _extract_hex(c)
+    color_names = []
+    for c in raw_colors[:3]:
         label = _extract_color_label(c)
-        color_parts.append(f"{hex_code} {label}")
+        if label and label != "—" and not label.startswith("#"):
+            color_names.append(label)
 
-    color_phrase = ", ".join(color_parts[:5]) if color_parts else "balanced professional palette"
+    color_phrase = ", ".join(color_names) if color_names else "two harmonious colors"
 
-    trait_phrase = ", ".join(traits[:5]) if traits else "modern, memorable, professional"
+    style = random.choice(STYLE_VARIANTS)
 
+    # أهم شي في أول 200 حرف (حد CLIP)
     prompt = (
-        f"Professional logo mark for {brand_name}, "
-        f"{visual_style}, "
-        f"brand personality: {trait_phrase}, "
-        f"use color palette: {color_phrase}, "
-        f"typography mood: {typography}, "
-        f"minimalist iconic symbol, flat vector, clean geometry, centered composition, "
-        f"white background, high contrast, scalable brand identity, ad-ready, "
-        f"no watermark, no mockup, no realistic photo, no 3d render"
+        f"A professional logo symbol: {concept}. "
+        f"{shapes}, {style}. "
+        f"Colors: {color_phrase}. "
+        f"Vector illustration on a plain white background, centered, "
+        f"one single wordless emblem with generous empty space around it, "
+        f"award-winning logo design, Paul Rand style simplicity."
     )
 
     if include_text:
-        prompt += f", include the brand name {brand_name} as clean readable typography"
-    else:
-        prompt += ", no text, no letters, no words"
+        brand_name = package.get("brand_name") or ""
+        prompt += f" Include the wordmark '{brand_name}' in clean typography."
 
     return prompt
