@@ -301,10 +301,23 @@ CUSTOM_CSS = """
     color: #2e7d32;
     font-size: 1.2rem;
 }
+.gradio-container {
+    --block-background-fill: rgba(255, 255, 255, 0.7) !important;
+    --input-background-fill: #f1f8e9 !important;
+    --input-border-color: #a5d6a7 !important;
+    --input-border-color-focus: #43a047 !important;
+    --checkbox-background-color-selected: #43a047 !important;
+    --checkbox-border-color-selected: #43a047 !important;
+    --button-primary-background-fill: linear-gradient(90deg, #2e7d32, #43a047) !important;
+    --button-primary-background-fill-hover: linear-gradient(90deg, #1b5e20, #2e7d32) !important;
+    --color-accent: #43a047 !important;
+}
 """
 
 with gr.Blocks(
-    theme=gr.themes.Soft(primary_hue="green", secondary_hue="emerald"),
+    theme=gr.themes.Soft(primary_hue="green",
+    secondary_hue="emerald",
+    neutral_hue="stone",),
     css=CUSTOM_CSS,
     title="Brandora",
 ) as demo:

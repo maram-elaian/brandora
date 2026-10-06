@@ -4,7 +4,7 @@ from matplotlib import font_manager
 from src.logo_prompt import _extract_hex, _extract_color_label
 
 
-def draw_wrapped(draw, x, y, text, font, fill, width=55, line_h=50):
+def draw_wrapped(draw, x, y, text, font, fill, width=85, line_h=42):
     for line in textwrap.wrap(str(text), width=width):
         draw.text((x, y), line, font=font, fill=fill)
         y += line_h
@@ -27,7 +27,7 @@ def export_brand_kit(package: dict, logo_image):
     font_title = ImageFont.truetype(font_bold, 96)
     font_body = ImageFont.truetype(font_regular, 48)
     font_small = ImageFont.truetype(font_regular, 28)
-
+    font_label = ImageFont.truetype(font_regular, 30)
     # Logo
     y = 80
     if logo_image is not None:
@@ -47,30 +47,41 @@ def export_brand_kit(package: dict, logo_image):
 
     # Color Palette
     colors = package.get("color_palette", [])
-    box_size = 120
-    gap = 40
+    box_size = 150
 
     color_data = []
     for c in colors[:5]:
         color_data.append((_extract_hex(c), _extract_color_label(c)))
 
-    total_width = len(color_data) * box_size + max(0, len(color_data) - 1) * gap
-    x_start = (W - total_width) // 2
+    n = max(1, len(color_data))
+    slot_w = min(340, (W - 200) // n)  # عرض الخانة لكل لون
+    x_start = (W - slot_w * n) // 2
+
+    label_line_h = 42
+    label_y = y + box_size + 45  # مسافة بين المربع والاسم
+    hex_y = label_y + label_line_h * 2 + 20  # مسافة بين الاسم والـ HEX
 
     for i, (hex_code, label) in enumerate(color_data):
-        x = x_start + i * (box_size + gap)
+        cx = x_start + i * slot_w + slot_w // 2  # مركز الخانة
+        x = cx - box_size // 2
 
+        # Color swatch
         draw.rounded_rectangle(
             [x, y, x + box_size, y + box_size],
-            radius=20, fill=hex_code, outline="#dddddd", width=3,
+            radius=24, fill=hex_code, outline="#dddddd", width=3,
         )
-        draw.text((x + box_size // 2, y + box_size + 35), label,
-                  font=font_small, fill="black", anchor="ma")
-        draw.text((x + box_size // 2, y + box_size + 80), hex_code,
-                  font=font_small, fill="#666666", anchor="ma")
 
-    y += 300
+        # Color name (سطرين كحد أقصى)
+        lines = textwrap.wrap(label, width=14)[:2]
+        for j, line in enumerate(lines):
+            draw.text((cx, label_y + j * label_line_h), line,
+                      font=font_label, fill="black", anchor="ma")
 
+        # HEX code
+        draw.text((cx, hex_y), hex_code,
+                  font=font_label, fill="#666666", anchor="ma")
+
+    y = hex_y + 150  # مسافة قبل قسم Typography
     # Typography (مع لفّ النص)
     y = draw_wrapped(draw, 100, y, f"Font: {package.get('typography', '—')}",
                      font_small, "black")
