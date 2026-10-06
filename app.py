@@ -318,7 +318,7 @@ with gr.Blocks(
 ) as demo:
     gr.Markdown(
         """
-        #  ✦. ⊹ ˚ .꒰ Brandora ꒱ ‧₊˚★
+        #                ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ .꒰ Brandora ꒱ ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ .
         ### مولّد الهوية البصرية بالذكاء الاصطناعي
         """
     )
@@ -402,14 +402,14 @@ with gr.Blocks(
                 "coffee",
                 "university students",
                 "provide a comfortable place for studying and socializing",
-                "modern, friendly, energetic",
+
                 "casual"
             ],
             [
                 "streetwear",
                 "Gen Z urban creatives",
                 "express individuality through bold designs",
-                "rebellious, creative, confident",
+
                 "bold"
             ],
         ],
