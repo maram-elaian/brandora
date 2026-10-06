@@ -1,5 +1,6 @@
 import os
 import re
+import gc
 import random
 
 import torch
@@ -83,10 +84,6 @@ def generate(
 ) -> str:
     """
     توليد نص من Qwen3-8B.
-
-    ملاحظات:
-    - لا تستعملي seed ثابت إذا بدك تنويع.
-    - max_new_tokens=900 مناسبة لـ brand package واحد.
     """
     model, tokenizer = _load_qwen()
 
@@ -98,7 +95,6 @@ def generate(
         system_prompt.strip()
         + "\n\nIMPORTANT OUTPUT RULES:\n"
         + "- Do not include reasoning.\n"
-        + "- Do not include < think> tags.\n"
         + "- Do not include markdown.\n"
         + "- Do not include explanations.\n"
         + "- Output valid JSON only.\n"
@@ -146,15 +142,35 @@ def generate(
 
     cleaned = _strip_thinking(raw)
 
+    # تنظيف المتغيرات الوسيطة من الـ GPU
+    del inputs, outputs
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     return cleaned if cleaned else raw.strip()
 
 
 def unload_qwen():
+    """
+    يحذف Qwen بالكامل من الـ GPU حتى يستطيع FLUX استخدام الذاكرة.
+    """
     global _model, _tokenizer
 
     if _model is not None:
-        del _model
-        del _tokenizer
-        _model = None
-        _tokenizer = None
+        # فك hooks الخاصة بـ accelerate (تسبب بقاء مراجع حية)
+        try:
+            from accelerate.hooks import remove_hook_from_module
+            remove_hook_from_module(_model, recurse=True)
+        except Exception:
+            pass
+
+    _model = None
+    _tokenizer = None
+
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
         torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
+    gc.collect()

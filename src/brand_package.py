@@ -241,4 +241,6 @@ def build_brand_packages(brief: dict, n: int = 3) -> list:
         packages.append(package)
 
     unload_qwen()
+    import torch
+    print("GPU after unload (GB):", torch.cuda.memory_allocated() / 1e9)
     return packages
