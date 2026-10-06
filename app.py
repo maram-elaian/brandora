@@ -252,20 +252,47 @@ def choose_package(packages, index):
     )
 
 
+
 def generate_logo_only(package):
     if package is None:
-        yield None
+        yield None, "⚠️ اختاري اقتراحًا أولًا.", gr.update(interactive=True)
         return
 
-    yield None  # (بيخلي الصورة فاضية لحظة الانتظار، الحالة النصية بمكان تاني)
+    # أثناء الانتظار:
+    # - نمسح الصورة القديمة
+    # - نظهر رسالة للمستخدم
+    # - نعطّل الزر لمنع الضغط مرة ثانية
+    yield (
+        None,
+        "🎨 **جاري توليد اللوجو...** قد يستغرق هذا بعض الوقت، يرجى الانتظار.",
+        gr.update(interactive=False)
+    )
 
     try:
         logo_prompt = build_logo_prompt(package)
         logo = generate_logo(logo_prompt)
-        yield logo
+
+        # بعد انتهاء FLUX:
+        # - نعرض اللوجو
+        # - نزيل رسالة الانتظار
+        # - نعيد تفعيل الزر
+        yield (
+            logo,
+            "✅ تم توليد اللوجو بنجاح!",
+            gr.update(interactive=True)
+        )
+
     except Exception as e:
         print("Logo generation error:", e)
-        yield None
+
+        # في حالة الخطأ، نعيد تفعيل الزر
+        yield (
+            None,
+            "❌ حدث خطأ أثناء توليد اللوجو. يمكنك المحاولة مرة أخرى.",
+            gr.update(interactive=True)
+        )
+
+
 def export_kit(package, logo_image):
     if package is None:
         return None
@@ -359,6 +386,14 @@ with gr.Blocks(
         visible=False
     )
 
+    logo_status = gr.Markdown()
+
+    logo_display = gr.Image(
+        label="اللوجو",
+        height=300,
+        interactive=False
+    )
+
     logo_display = gr.Image(label="اللوجو", height=300, interactive=False)
     export_btn = gr.Button("📦 حمّل Brand Kit", variant="secondary", visible=False)
     export_file = gr.File(
@@ -409,7 +444,11 @@ with gr.Blocks(
     logo_btn.click(
         fn=generate_logo_only,
         inputs=[chosen_package_state],
-        outputs=[logo_display],
+        outputs=[
+            logo_display,
+            logo_status,
+            logo_btn,
+        ],
     )
     export_btn.click(
     fn=export_kit,
