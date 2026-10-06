@@ -162,6 +162,13 @@ LOADING_MESSAGES = [
     "🧠 عم نحلّل وصف البراند...",
     "✨ عم نولّد أسماء إبداعية...",
     "🎨 عم نختار الألوان المناسبة...",
+    "🧠 عم نحلّل وصف البراند...",
+    "✨ عم نولّد أسماء إبداعية...",
+    "🎨 عم نختار الألوان المناسبة...", "🧠 عم نحلّل وصف البراند...",
+    "✨ عم نولّد أسماء إبداعية...",
+    "🎨 عم نختار الألوان المناسبة...", "🧠 عم نحلّل وصف البراند...",
+    "✨ عم نولّد أسماء إبداعية...",
+    "🎨 عم نختار الألوان المناسبة...", "ستظهر الاقتراحات قريبا "
 ]
 
 
@@ -194,7 +201,7 @@ def generate_options(industry, audience, personality, tone, purpose):
     ]
 
     if not packages:
-        yield "❌ فشل التوليد، جربي مرة ثانية", [], \
+        yield "❌ فشل التوليد، جرب مرة ثانية", [], \
               gr.update(value="", visible=False), gr.update(value="", visible=False), gr.update(value="", visible=False), \
               gr.update(visible=False), gr.update(visible=False), gr.update(visible=False)
         return
@@ -202,7 +209,7 @@ def generate_options(industry, audience, personality, tone, purpose):
     if len(packages) >= 3:
         status = ""
     else:
-        status = f"⚠️ تم توليد {len(packages)} اقتراحات فقط. جربي مرة ثانية للحصول على 3."
+        status = f"⚠️ تم توليد {len(packages)} اقتراحات فقط. جرب مرة ثانية للحصول على 3."
 
     cards = []
     buttons = []
@@ -318,7 +325,7 @@ with gr.Blocks(
 ) as demo:
     gr.Markdown(
         """
-        #                ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ . ✦. ⊹ ˚ .‧₊˚★꒰ Brandora ꒱ ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ . ✦. ⊹ ˚ .‧₊˚★
+        #                ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ . ✦. ⊹ ˚ .‧₊˚★꒰ Brandora ꒱ ✦. ⊹ ˚ .‧₊˚★ ✦. ⊹ ˚ . ✦. ⊹ ˚ .‧
         ### مولّد الهوية البصرية بالذكاء الاصطناعي
         """
     )
@@ -402,7 +409,7 @@ with gr.Blocks(
                 "coffee",
                 "university students",
                 "provide a comfortable place for studying and socializing",
-                "casual"
+                "friendly"
             ],
             [
                 "streetwear",
