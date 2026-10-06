@@ -388,11 +388,7 @@ with gr.Blocks(
 
     logo_status = gr.Markdown()
 
-    logo_display = gr.Image(
-        label="اللوجو",
-        height=300,
-        interactive=False
-    )
+
 
     logo_display = gr.Image(label="اللوجو", height=300, interactive=False)
     export_btn = gr.Button("📦 حمّل Brand Kit", variant="secondary", visible=False)
