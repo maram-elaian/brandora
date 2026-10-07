@@ -479,7 +479,7 @@ CUSTOM_CSS = """
 .gradio-container .brand-name h2,
 .gradio-container .brand-name h3 {
     color: #14381F !important;
-    -webkit-text-fill-color: #14381F !important;
+    -webkit-text-fill-color: #0D1F16 !important;
 }
 
 
