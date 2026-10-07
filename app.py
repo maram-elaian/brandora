@@ -290,21 +290,21 @@ CUSTOM_CSS = """
     background: linear-gradient(
         135deg,
         #0D1F16 0%,
-        #14381F 28%,
-        #1C4D2E 55%,
-        #2E6B3F 78%,
-        #3F8451 100%
+        #1C4D2E 18%,
+        #2E6B3F 38%,
+        #3F8451 58%,
+        #5AA06D 75%,
+        #7BAE8A 88%,
+        #A1C29F 100%
     ) !important;
 
     --body-text-color: #E6F2E1 !important;
-    --body-text-color-subdued: #A1C29F !important;
+    --body-text-color-subdued: #C3DDBA !important;
     --block-label-text-color: #E6F2E1 !important;
-    --block-title-text-color: #C3DDBA !important;
+    --block-title-text-color: #E6F2E1 !important;
     --checkbox-label-text-color: #E6F2E1 !important;
-    --input-placeholder-color: #7BAE8A !important;
+    --input-placeholder-color: #C3DDBA !important;
 }
-
-
 /* =========================
    Brandora Title
    ========================= */
