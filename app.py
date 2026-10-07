@@ -289,19 +289,19 @@ CUSTOM_CSS = """
 .gradio-container {
     background: linear-gradient(
         135deg,
-        #071a12 0%,
-        #0d2418 25%,
-        #163522 50%,
-        #27472f 75%,
-        #3f6045 100%
+        #0D1F16 0%,
+        #14381F 28%,
+        #1C4D2E 55%,
+        #2E6B3F 78%,
+        #3F8451 100%
     ) !important;
 
-    --body-text-color: #f1f5ed !important;
-    --body-text-color-subdued: #d0dccf !important;
-    --block-label-text-color: #f1f5ed !important;
-    --block-title-text-color: #f1f5ed !important;
-    --checkbox-label-text-color: #f1f5ed !important;
-    --input-placeholder-color: #9eaaa0 !important;
+    --body-text-color: #E6F2E1 !important;
+    --body-text-color-subdued: #A1C29F !important;
+    --block-label-text-color: #E6F2E1 !important;
+    --block-title-text-color: #C3DDBA !important;
+    --checkbox-label-text-color: #E6F2E1 !important;
+    --input-placeholder-color: #7BAE8A !important;
 }
 
 
@@ -319,10 +319,11 @@ CUSTOM_CSS = """
 
     background: linear-gradient(
         90deg,
-        #dcebd8 0%,
-        #ffffff 35%,
-        #b8d6b8 65%,
-        #eef6ea 100%
+        #7BAE8A 0%,
+        #C3DDBA 30%,
+        #E6F2E1 50%,
+        #C3DDBA 70%,
+        #5AA06D 100%
     );
 
     -webkit-background-clip: text;
@@ -333,7 +334,7 @@ CUSTOM_CSS = """
 }
 
 #brand-title p {
-    color: #e3eedf !important;
+    color: #E6F2E1 !important;
     font-size: 1.2rem;
 }
 
@@ -345,22 +346,22 @@ CUSTOM_CSS = """
 .gradio-container .block-label,
 .gradio-container .label-wrap,
 .gradio-container .block-title {
-    color: #f1f5ed !important;
+    color: #E6F2E1 !important;
 }
 
 
 /* =========================
-   Black Input Boxes
+   Input Boxes
    ========================= */
 .gradio-container input,
 .gradio-container textarea,
 .gradio-container select {
-    background-color: #07100b !important;
+    background-color: #0D1F16 !important;
 
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: #E6F2E1 !important;
+    -webkit-text-fill-color: #E6F2E1 !important;
 
-    border-color: #54745b !important;
+    border-color: #5AA06D !important;
 }
 
 
@@ -369,8 +370,8 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container input[type="text"],
 .gradio-container textarea {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: #E6F2E1 !important;
+    -webkit-text-fill-color: #E6F2E1 !important;
 }
 
 
@@ -379,8 +380,8 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container input::placeholder,
 .gradio-container textarea::placeholder {
-    color: #9eaaa0 !important;
-    -webkit-text-fill-color: #9eaaa0 !important;
+    color: #7BAE8A !important;
+    -webkit-text-fill-color: #7BAE8A !important;
     opacity: 1 !important;
 }
 
@@ -390,21 +391,21 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container .wrap label,
 .gradio-container .wrap label span {
-    color: #f1f5ed !important;
+    color: #E6F2E1 !important;
 }
 
 
 /* =========================
-   Dropdown Text
+   Dropdown
    ========================= */
 .gradio-container .dropdown,
 .gradio-container .dropdown input {
-    background-color: #07100b !important;
+    background-color: #0D1F16 !important;
 
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: #E6F2E1 !important;
+    -webkit-text-fill-color: #E6F2E1 !important;
 
-    border-color: #54745b !important;
+    border-color: #5AA06D !important;
 }
 
 
@@ -412,7 +413,14 @@ CUSTOM_CSS = """
    Buttons
    ========================= */
 .gradio-container button {
-    color: #ffffff !important;
+    background: linear-gradient(
+        135deg,
+        #2E6B3F,
+        #3F8451
+    ) !important;
+
+    color: #E6F2E1 !important;
+    border-color: #5AA06D !important;
 }
 
 
@@ -426,7 +434,19 @@ CUSTOM_CSS = """
 .gradio-container .prose h4,
 .gradio-container .prose h5,
 .gradio-container .prose h6 {
-    color: #f1f5ed !important;
+    color: #C3DDBA !important;
+}
+
+
+/* =========================
+   Subtle Hover Effect
+   ========================= */
+.gradio-container button:hover {
+    background: linear-gradient(
+        135deg,
+        #3F8451,
+        #5AA06D
+    ) !important;
 }
 """
 with gr.Blocks(
