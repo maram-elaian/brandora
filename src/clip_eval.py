@@ -30,13 +30,23 @@ def _load():
 def _similarities(image: Image.Image, texts: list) -> torch.Tensor:
     """cosine similarity بين الصورة وكل نص."""
     model, proc = _load()
-    inputs = proc(text=texts, images=image.convert("RGB"),
-                  return_tensors="pt", padding=True, truncation=True)
-    img = model.get_image_features(pixel_values=inputs["pixel_values"])
-    txt = model.get_text_features(input_ids=inputs["input_ids"],
-                                  attention_mask=inputs["attention_mask"])
+
+    inputs = proc(
+        text=texts,
+        images=image.convert("RGB"),
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+    )
+
+    outputs = model(**inputs)
+
+    img = outputs.image_embeds
+    txt = outputs.text_embeds
+
     img = img / img.norm(dim=-1, keepdim=True)
     txt = txt / txt.norm(dim=-1, keepdim=True)
+
     return (img @ txt.T).squeeze(0)
 
 
