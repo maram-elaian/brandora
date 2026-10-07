@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "organic bakery",
+    "target_audience": "families",
+    "brand_purpose": "fresh handmade bread from local ingredients",
+    "personality": [
+      "warm",
+      "trustworthy"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "Breadspire",
+    "tagline": "Baked with purpose, shared with love",
+    "color_palette": [
+      "#D4AF37 golden honey",
+      "#C9A083 rustic oatmeal",
+      "#6B4423 earthy sage"
+    ],
+    "typography": "Handwritten serif with rounded edges for approachability",
+    "visual_style": "Warm, textured, with natural elements and handcrafted details",
+    "personality_traits": [
+      "trustworthy",
+      "warm",
+      "local"
+    ],
+    "logo_concept": "a loaf of bread shaped like a tree with branches made of flour",
+    "logo_shape_language": "interlocking geometric shapes"
+  }
+}

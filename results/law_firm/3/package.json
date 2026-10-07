@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "law firm",
+    "target_audience": "small business owners",
+    "brand_purpose": "clear and trustworthy legal advice",
+    "personality": [
+      "trustworthy",
+      "elegant"
+    ],
+    "tone": "formal"
+  },
+  "package": {
+    "brand_name": "Vireo",
+    "tagline": "Clarity in every clause",
+    "color_palette": [
+      "#6B46C1 bold indigo",
+      "#F0E6FF pale lavender",
+      "#D1C4E9 soft lilac"
+    ],
+    "typography": "Serif with clean line weights and subtle ornamentation",
+    "visual_style": "Minimalist with symbolic iconography",
+    "personality_traits": [
+      "trustworthy",
+      "elegant",
+      "precise"
+    ],
+    "logo_concept": "a balance scale with a quill and compass fused into the center",
+    "logo_shape_language": "symmetrical emblem"
+  }
+}

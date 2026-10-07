@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "coffee shop",
+    "target_audience": "university students",
+    "brand_purpose": "comfortable place for studying and socializing",
+    "personality": [
+      "warm",
+      "friendly"
+    ],
+    "tone": "casual"
+  },
+  "package": {
+    "brand_name": "Hush & Hype",
+    "tagline": "Coffee where ideas whisper and friends shout",
+    "color_palette": [
+      "#D4AF37 warm gold",
+      "#B8860B rich copper",
+      "#964B00 deep oxide"
+    ],
+    "typography": "Casual slab serif with handwritten accents",
+    "visual_style": "Playful yet grounded, blending academic and casual elements",
+    "personality_traits": [
+      "warm",
+      "friendly",
+      "balanced"
+    ],
+    "logo_concept": "A mug with a magnifying glass revealing a campus map",
+    "logo_shape_language": "interlocking geometric shapes"
+  }
+}

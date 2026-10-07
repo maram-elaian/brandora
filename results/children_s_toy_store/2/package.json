@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "children's toy store",
+    "target_audience": "young parents",
+    "brand_purpose": "toys that spark curiosity and creativity",
+    "personality": [
+      "playful",
+      "friendly"
+    ],
+    "tone": "playful"
+  },
+  "package": {
+    "brand_name": "Puzzlewood",
+    "tagline": "Where imagination builds itself",
+    "color_palette": [
+      "#FFD700 golden marigold",
+      "#C19A6B toasted oat",
+      "#A8D8B9 fresh moss"
+    ],
+    "typography": "Hand-drawn script with bold sans-serif accents",
+    "visual_style": "Whimsical and layered with folk art influences",
+    "personality_traits": [
+      "playful",
+      "friendly",
+      "creative"
+    ],
+    "logo_concept": "A wooden puzzle piece transforming into a smiling face",
+    "logo_shape_language": "interlocking geometric shapes"
+  }
+}

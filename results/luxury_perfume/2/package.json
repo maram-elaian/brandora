@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "luxury perfume",
+    "target_audience": "affluent women",
+    "brand_purpose": "signature scents that feel timeless",
+    "personality": [
+      "luxurious",
+      "elegant"
+    ],
+    "tone": "sophisticated"
+  },
+  "package": {
+    "brand_name": "Velvet Nocturne",
+    "tagline": "A whisper of eternity",
+    "color_palette": [
+      "#2E0854 midnight velvet",
+      "#D4C9F7 ethereal dusk",
+      "#F0E6FF soft moonlight"
+    ],
+    "typography": "Serif with subtle flourishes and engraved lettering",
+    "visual_style": "Opulent yet minimalist, inspired by celestial themes and aged parchment textures",
+    "personality_traits": [
+      "luxurious",
+      "mysterious",
+      "timeless"
+    ],
+    "logo_concept": "A compass needle shaped like a rose petal pointing toward a crescent moon",
+    "logo_shape_language": "symmetrical emblem"
+  }
+}

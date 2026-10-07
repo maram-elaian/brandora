@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "children's toy store",
+    "target_audience": "young parents",
+    "brand_purpose": "toys that spark curiosity and creativity",
+    "personality": [
+      "playful",
+      "friendly"
+    ],
+    "tone": "playful"
+  },
+  "package": {
+    "brand_name": "WispNest",
+    "tagline": "Where imagination lives between the lines",
+    "color_palette": [
+      "#FAD0C4 soft peach bloom",
+      "#B3DDE6 misty sky blue",
+      "#FFD97D golden amber"
+    ],
+    "typography": "Hand-drawn script with crisp sans-serif accents",
+    "visual_style": "Whimsical and layered, with hidden details",
+    "personality_traits": [
+      "playful",
+      "friendly",
+      "creative"
+    ],
+    "logo_concept": "a crumpled paper airplane nested inside a curious face",
+    "logo_shape_language": "negative-space silhouette"
+  }
+}

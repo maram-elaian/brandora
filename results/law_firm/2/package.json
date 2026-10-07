@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "law firm",
+    "target_audience": "small business owners",
+    "brand_purpose": "clear and trustworthy legal advice",
+    "personality": [
+      "trustworthy",
+      "elegant"
+    ],
+    "tone": "formal"
+  },
+  "package": {
+    "brand_name": "VerveLaw",
+    "tagline": "Clarity in every clause",
+    "color_palette": [
+      "#4B2E82 deep sapphire",
+      "#F0D6B1 parchment glow",
+      "#D4A78C aged bronze"
+    ],
+    "typography": "Serif with subtle italic flourishes",
+    "visual_style": "Minimalist with intentional whitespace",
+    "personality_traits": [
+      "trustworthy",
+      "elegant",
+      "confident"
+    ],
+    "logo_concept": "A quill forming a scale from a folded parchment",
+    "logo_shape_language": "symmetrical emblem"
+  }
+}

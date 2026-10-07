@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "organic bakery",
+    "target_audience": "families",
+    "brand_purpose": "fresh handmade bread from local ingredients",
+    "personality": [
+      "warm",
+      "trustworthy"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "Rooted Loaf",
+    "tagline": "Baked with purpose, shared with love",
+    "color_palette": [
+      "#D2691E golden amber",
+      "#C2B288 soft wheat",
+      "#705D45 earthy moss"
+    ],
+    "typography": "Handwritten serif with clean sans-serif accents",
+    "visual_style": "Whimsical farmhouse charm with natural textures",
+    "personality_traits": [
+      "trustworthy",
+      "cozy",
+      "authentic"
+    ],
+    "logo_concept": "A rolling pin shaped like a bread loaf with a wheat stalk growing from its center",
+    "logo_shape_language": "interlocking geometric shapes"
+  }
+}

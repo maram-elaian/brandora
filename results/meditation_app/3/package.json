@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "meditation app",
+    "target_audience": "busy professionals",
+    "brand_purpose": "help people unwind and sleep better",
+    "personality": [
+      "calm",
+      "minimalist"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "Nocturne",
+    "tagline": "Let the silence carry you",
+    "color_palette": [
+      "#2E4053 deep dusk",
+      "#F0E6D9 soft moonlight",
+      "#D3D3D3 pale ash"
+    ],
+    "typography": "Clean sans-serif with subtle serifs, elegant and legible",
+    "visual_style": "Minimalist with subtle organic textures and gentle gradients",
+    "personality_traits": [
+      "calm",
+      "refined",
+      "soothing"
+    ],
+    "logo_concept": "A crescent moon wrapped around a single leaf in muted tones",
+    "logo_shape_language": "negative-space silhouette"
+  }
+}

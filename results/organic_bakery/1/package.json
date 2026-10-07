@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "organic bakery",
+    "target_audience": "families",
+    "brand_purpose": "fresh handmade bread from local ingredients",
+    "personality": [
+      "warm",
+      "trustworthy"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "Hearth & Hug",
+    "tagline": "Bread baked with love, shared with care",
+    "color_palette": [
+      "#D67E5C warm honey",
+      "#F2C9B0 soft wheat",
+      "#A88A5C earthy oat"
+    ],
+    "typography": "Handwritten serif with rounded edges",
+    "visual_style": "Warm, rustic, family-friendly",
+    "personality_traits": [
+      "trustworthy",
+      "comforting",
+      "community-focused"
+    ],
+    "logo_concept": "a loaf of bread wrapped in a scarf with a smiling child's hand",
+    "logo_shape_language": "soft curves and stacked rounded blocks"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "law firm",
+    "target_audience": "small business owners",
+    "brand_purpose": "clear and trustworthy legal advice",
+    "personality": [
+      "trustworthy",
+      "elegant"
+    ],
+    "tone": "formal"
+  },
+  "package": {
+    "brand_name": "Lumenis",
+    "tagline": "Lighting the way through complexity",
+    "color_palette": [
+      "#4B0082 violet dusk",
+      "#F5DEB3 ivory mist",
+      "#6B8E23 moss green"
+    ],
+    "typography": "Serif with subtle stroke variation for depth",
+    "visual_style": "Minimalist with refined details",
+    "personality_traits": [
+      "trustworthy",
+      "elegant",
+      "intelligent"
+    ],
+    "logo_concept": "a compass needle shaped like a gavel, pointing toward a key",
+    "logo_shape_language": "symmetrical emblem"
+  }
+}

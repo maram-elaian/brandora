@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "meditation app",
+    "target_audience": "busy professionals",
+    "brand_purpose": "help people unwind and sleep better",
+    "personality": [
+      "calm",
+      "minimalist"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "HushLine",
+    "tagline": "The quiet before tomorrow",
+    "color_palette": [
+      "#F5F0E6 soft moonlight",
+      "#D4CFC2 gentle dusk",
+      "#9A9087 muted ash"
+    ],
+    "typography": "Clean sans-serif with subtle serifs for warmth",
+    "visual_style": "Minimalist with intentional whitespace and soft gradients",
+    "personality_traits": [
+      "calm",
+      "focus",
+      "serene"
+    ],
+    "logo_concept": "A compass needle drifting into a sleeping leaf",
+    "logo_shape_language": "negative-space silhouette"
+  }
+}

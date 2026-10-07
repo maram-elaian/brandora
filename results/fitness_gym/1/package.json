@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "fitness gym",
+    "target_audience": "young adults",
+    "brand_purpose": "build strength and community",
+    "personality": [
+      "energetic",
+      "bold"
+    ],
+    "tone": "bold"
+  },
+  "package": {
+    "brand_name": "VerveCore",
+    "tagline": "Strength meets soul",
+    "color_palette": [
+      "#FF6B6B bold crimson",
+      "#F7CEA0 golden dawn",
+      "#4E54C8 electric sapphire"
+    ],
+    "typography": "Bold sans-serif with dynamic letter spacing",
+    "visual_style": "High-energy, kinetic, with bold contrasts",
+    "personality_traits": [
+      "bold",
+      "energetic",
+      "connected"
+    ],
+    "logo_concept": "a weightlifting barbell wrapped around a raised fist",
+    "logo_shape_language": "sharp triangles"
+  }
+}

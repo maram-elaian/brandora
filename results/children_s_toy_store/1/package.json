@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "children's toy store",
+    "target_audience": "young parents",
+    "brand_purpose": "toys that spark curiosity and creativity",
+    "personality": [
+      "playful",
+      "friendly"
+    ],
+    "tone": "playful"
+  },
+  "package": {
+    "brand_name": "Lumeon",
+    "tagline": "Where imagination lights up",
+    "color_palette": [
+      "#FFD700 golden dawn",
+      "#F4A266 coral haze",
+      "#8E6C3A moss whisper"
+    ],
+    "typography": "Soft rounded sans-serif with whimsical letterforms",
+    "visual_style": "Warm, inviting, with subtle organic textures",
+    "personality_traits": [
+      "playful",
+      "friendly",
+      "imaginative"
+    ],
+    "logo_concept": "a lantern hanging from a tree branch with glowing light strings",
+    "logo_shape_language": "soft curves and negative-space silhouette"
+  }
+}

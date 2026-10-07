@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "luxury perfume",
+    "target_audience": "affluent women",
+    "brand_purpose": "signature scents that feel timeless",
+    "personality": [
+      "luxurious",
+      "elegant"
+    ],
+    "tone": "sophisticated"
+  },
+  "package": {
+    "brand_name": "Velouris",
+    "tagline": "A scent that lingers beyond time",
+    "color_palette": [
+      "#D4AF37 golden dusk",
+      "#6B5B95 midnight violet",
+      "#F0E68C aged parchment"
+    ],
+    "typography": "serif with elegant, elongated letterforms",
+    "visual_style": "minimalist with ornate detailing",
+    "personality_traits": [
+      "luxurious",
+      "timeless",
+      "refined"
+    ],
+    "logo_concept": "a silver hourglass filled with liquid mercury and wrapped in silk",
+    "logo_shape_language": "symmetrical emblem"
+  }
+}

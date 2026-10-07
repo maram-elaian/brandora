@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "streetwear",
+    "target_audience": "Gen Z urban creatives",
+    "brand_purpose": "express individuality through bold designs",
+    "personality": [
+      "bold",
+      "rebellious"
+    ],
+    "tone": "bold"
+  },
+  "package": {
+    "brand_name": "Riftwave",
+    "tagline": "Break the grid, wear the glitch",
+    "color_palette": [
+      "#D39E6C sun-bleached rust",
+      "#3A2A5F midnight steel",
+      "#FF6B6B neon bleed"
+    ],
+    "typography": "Sleek, angular sans-serif with sharp serifs",
+    "visual_style": "Urban meets cyberpunk with layered textures",
+    "personality_traits": [
+      "rebellious",
+      "avant-garde",
+      "unapologetic"
+    ],
+    "logo_concept": "a torn denim jacket fused with a circuit board pendant",
+    "logo_shape_language": "interlocking geometric shapes"
+  }
+}

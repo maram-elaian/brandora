@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "industry": "meditation app",
+    "target_audience": "busy professionals",
+    "brand_purpose": "help people unwind and sleep better",
+    "personality": [
+      "calm",
+      "minimalist"
+    ],
+    "tone": "friendly"
+  },
+  "package": {
+    "brand_name": "Lullabye",
+    "tagline": "Unwind in the quiet before the storm",
+    "color_palette": [
+      "#F3E6D4 soft moonlight",
+      "#A7C9B6 gentle fog",
+      "#4A5568 midnight charcoal"
+    ],
+    "typography": "Clean sans-serif with subtle serifs for warmth",
+    "visual_style": "Minimalist with organic textures and negative space",
+    "personality_traits": [
+      "calm",
+      "serene",
+      "reliable"
+    ],
+    "logo_concept": "a sleeping owl resting on a crescent moon with soft waves beneath",
+    "logo_shape_language": "negative-space silhouette"
+  }
+}
