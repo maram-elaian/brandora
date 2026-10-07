@@ -283,11 +283,9 @@ def export_kit(package, logo_image):
 # ------------------------------------------------------------------
 
 CUSTOM_CSS = """
-/* ================================
-   Brandora - Clean Green Theme
-   ================================ */
-
-/* Main background */
+/* =========================
+   Main Background
+   ========================= */
 .gradio-container {
     background: linear-gradient(
         135deg,
@@ -296,24 +294,18 @@ CUSTOM_CSS = """
         #a5d6a7 100%
     ) !important;
 
-    --body-text-color: #1b5e20 !important;
-    --body-text-color-subdued: #2e5d34 !important;
-
-    /* Labels / titles outside input boxes */
+    --body-text-color: #1b3d1f !important;
+    --body-text-color-subdued: #3d5c40 !important;
     --block-label-text-color: #1b5e20 !important;
     --block-title-text-color: #1b5e20 !important;
-
-    /* Placeholder */
-    --input-placeholder-color: #777777 !important;
-
     --checkbox-label-text-color: #1b5e20 !important;
+    --input-placeholder-color: #777777 !important;
 }
 
 
-/* ================================
-   Main Brandora Title
-   ================================ */
-
+/* =========================
+   Brandora Title
+   ========================= */
 #brand-title {
     text-align: center;
     margin: 10px 0 20px 0;
@@ -322,14 +314,17 @@ CUSTOM_CSS = """
 #brand-title h1 {
     font-size: 4.5rem !important;
     font-weight: 800 !important;
+
     background: linear-gradient(
         90deg,
         #1b5e20,
         #43a047,
         #66bb6a
     );
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
     letter-spacing: 4px;
     margin: 0;
 }
@@ -340,104 +335,92 @@ CUSTOM_CSS = """
 }
 
 
-/* ================================
-   Text outside input boxes
-   ================================ */
-
-/* Section headings */
-.gradio-container h1,
-.gradio-container h2,
-.gradio-container h3,
-.gradio-container h4,
-.gradio-container h5,
-.gradio-container h6 {
-    color: #1b5e20 !important;
-}
-
-
-/* Labels */
+/* =========================
+   Labels / Headings
+   ========================= */
 .gradio-container label,
+.gradio-container .block-label,
 .gradio-container .label-wrap,
-.gradio-container .block-label {
+.gradio-container .block-title {
     color: #1b5e20 !important;
 }
 
 
-/* Markdown text outside inputs */
-.gradio-container .prose,
-.gradio-container .prose p,
-.gradio-container .prose strong {
-    color: #1b5e20 !important;
-}
-
-
-/* ================================
-   Text INSIDE input boxes
-   ================================ */
-
-/* Textbox */
+/* =========================
+   Black Input Boxes
+   ========================= */
 .gradio-container input,
-.gradio-container textarea {
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-}
-
-
-/* Dropdown */
+.gradio-container textarea,
 .gradio-container select {
-    color: #000000 !important;
+    background-color: #000000 !important;
+
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 
-/* Input placeholder */
+/* =========================
+   Text inside Input Boxes
+   ========================= */
+.gradio-container input[type="text"],
+.gradio-container textarea {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+
+/* =========================
+   Placeholder Text
+   ========================= */
 .gradio-container input::placeholder,
 .gradio-container textarea::placeholder {
     color: #777777 !important;
+    -webkit-text-fill-color: #777777 !important;
     opacity: 1 !important;
 }
 
 
-/* ================================
-   Checkbox / Dropdown text
-   ================================ */
-
-.gradio-container .wrap input {
-    color: #000000 !important;
-}
-
-.gradio-container [role="option"] {
-    color: #000000 !important;
-}
-
-.gradio-container [role="listbox"] {
-    color: #000000 !important;
+/* =========================
+   Checkbox / Personality Options
+   ========================= */
+.gradio-container .wrap label,
+.gradio-container .wrap label span {
+    color: #1b5e20 !important;
 }
 
 
-/* ================================
+/* =========================
+   Dropdown Text
+   ========================= */
+.gradio-container .dropdown,
+.gradio-container .dropdown input {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+
+/* =========================
    Buttons
-   ================================ */
-
+   ========================= */
 .gradio-container button {
-    color: #1b5e20;
-}
-
-
-/* Primary button */
-.gradio-container button.primary {
     color: #ffffff !important;
 }
 
 
-/* ================================
-   Status / helper text
-   ================================ */
-
-.gradio-container .prose {
-    color: #1b5e20;
+/* =========================
+   Keep Markdown Text Green
+   ========================= */
+.gradio-container .prose,
+.gradio-container .prose h1,
+.gradio-container .prose h2,
+.gradio-container .prose h3,
+.gradio-container .prose h4,
+.gradio-container .prose h5,
+.gradio-container .prose h6 {
+    color: #1b5e20 !important;
 }
 """
-
 
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="green",
