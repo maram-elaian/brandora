@@ -1,6 +1,8 @@
 import os
 import gc
 import torch
+from PIL import Image
+from src.logo_prompt import _extract_hex
 from huggingface_hub import login
 from diffusers import (
     FluxPipeline,
@@ -71,6 +73,21 @@ def _run(pipe, prompt, size):
             generator=generator,
         ).images[0]
 
+def apply_palette(image, color_palette):
+    """يحوّل ألوان الصورة إلى ألوان الباليت (+ الأبيض للخلفية) بالضبط."""
+    hexes = [_extract_hex(c) for c in (color_palette or [])[:5]]
+    rgb = [(255, 255, 255)]                       # الخلفية البيضاء
+    for h in hexes:
+        h = h.lstrip("#")
+        rgb.append(tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)))
+
+    flat = [v for c in rgb for v in c]
+    flat += [0] * (768 - len(flat))               # الباليت لازم يكون 256 لون
+    pal = Image.new("P", (1, 1))
+    pal.putpalette(flat)
+
+    out = image.convert("RGB").quantize(palette=pal, dither=Image.Dither.NONE)
+    return out.convert("RGB")
 
 def generate_logo(prompt: str):
     _free_gpu()                     # تنظيف أي بقايا من Qwen

@@ -9,7 +9,7 @@ import tempfile
 import gradio as gr
 import numpy as np
 from PIL import Image
-
+from src.logo_generator import generate_logo, apply_palette
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
@@ -245,6 +245,7 @@ def generate_logo_only(package):
         logo_prompt = build_logo_prompt(package)
         print("LOGO PROMPT:", logo_prompt)
         logo = generate_logo(logo_prompt)
+        logo = apply_palette(logo, package.get("color_palette"))
 
         yield (
             logo,
@@ -311,6 +312,16 @@ CUSTOM_CSS = """
     --button-primary-background-fill: linear-gradient(90deg, #2e7d32, #43a047) !important;
     --button-primary-background-fill-hover: linear-gradient(90deg, #1b5e20, #2e7d32) !important;
     --color-accent: #43a047 !important;
+    
+    .gradio-container {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 45%, #a5d6a7 100%) !important;
+    --body-text-color: #1b3d1f !important;
+    --body-text-color-subdued: #3d5c40 !important;
+    --block-label-text-color: #1b5e20 !important;
+    --block-title-text-color: #1b5e20 !important;
+    --input-placeholder-color: #6b8f6e !important;
+    --checkbox-label-text-color: #1b3d1f !important;
+}
 }
 """
 
