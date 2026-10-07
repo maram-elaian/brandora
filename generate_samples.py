@@ -58,7 +58,11 @@ def main():
     for brief in BRIEFS:
         name = slug(brief["industry"])
         print(f"\n=== {name} ===")
+        done = [os.path.join(OUT_DIR, name, str(i), "package.json") for i in (1, 2, 3)]
 
+        if all(os.path.exists(p) for p in done):
+            print("skip (already done):", name)
+            continue
         packages = build_brand_packages(brief, n=3)
 
         for i, pkg in enumerate(packages, start=1):
