@@ -288,13 +288,13 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container {
     background: linear-gradient(
-        90deg,
-        #0f2a1d 100%,
+        180deg,
+        #0f2a1d 45%,
         #375534 45%,
         #6b9071 5%
     ) !important;
 
-    --body-text-color: #1b3d1f !important;
+    --body-text-color: #e3eed4 !important;
     --body-text-color-subdued: #3d5c40 !important;
     --block-label-text-color: #e3eed4 !important;
     --block-title-text-color: #e3eed4 !important;
