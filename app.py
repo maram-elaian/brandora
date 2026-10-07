@@ -575,6 +575,18 @@ with gr.Blocks(
         inputs=[chosen_package_state, logo_display],
         outputs=export_file,
     )
+    gr.Markdown(
+        """
+        <div style="text-align:center; margin-top:35px; padding:20px 0; 
+                    color:#C3DDBA; font-size:14px;">
+            © 2026 Maram Ashraf · Brandora
+            <br>
+            <span style="opacity:0.75;">
+                AI-Powered Brand Identity Generator
+            </span>
+        </div>
+        """
+    )
 
 if __name__ == "__main__":
     demo.queue().launch(share=True)
