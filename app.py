@@ -287,16 +287,26 @@ CUSTOM_CSS = """
    Main Background
    ========================= */
 .gradio-container {
-    background: linear-gradient(
-        135deg,
-        #0D1F16 0%,
-        #1C4D2E 18%,
-        #2E6B3F 38%,
-        #3F8451 58%,
-        #5AA06D 75%,
-        #7BAE8A 88%,
-        #A1C29F 100%
-    ) !important;
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            #A1C29F 0%,
+            #7BAE8A 18%,
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 15% 85%,
+            #5AA06D 0%,
+            #3F8451 25%,
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #0D1F16 0%,
+            #1C4D2E 35%,
+            #2E6B3F 60%,
+            #5AA06D 100%
+        ) !important;
 
     --body-text-color: #E6F2E1 !important;
     --body-text-color-subdued: #C3DDBA !important;
@@ -305,6 +315,8 @@ CUSTOM_CSS = """
     --checkbox-label-text-color: #E6F2E1 !important;
     --input-placeholder-color: #C3DDBA !important;
 }
+
+
 /* =========================
    Brandora Title
    ========================= */
@@ -415,12 +427,28 @@ CUSTOM_CSS = """
 .gradio-container button {
     background: linear-gradient(
         135deg,
-        #2E6B3F,
-        #3F8451
+        #14381F,
+        #1C4D2E
     ) !important;
 
     color: #E6F2E1 !important;
-    border-color: #5AA06D !important;
+    border: 1px solid #5AA06D !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* =========================
+   Button Hover
+   ========================= */
+.gradio-container button:hover {
+    background: linear-gradient(
+        135deg,
+        #1C4D2E,
+        #2E6B3F
+    ) !important;
+
+    border-color: #7BAE8A !important;
 }
 
 
@@ -439,14 +467,47 @@ CUSTOM_CSS = """
 
 
 /* =========================
-   Subtle Hover Effect
+   Brand Names
    ========================= */
-.gradio-container button:hover {
-    background: linear-gradient(
-        135deg,
-        #3F8451,
-        #5AA06D
-    ) !important;
+
+/* 
+   Darker text for generated brand names
+   so they remain readable on light cards.
+*/
+.gradio-container .brand-name,
+.gradio-container .brand-title,
+.gradio-container .brand-name h2,
+.gradio-container .brand-name h3 {
+    color: #14381F !important;
+    -webkit-text-fill-color: #14381F !important;
+}
+
+
+/* =========================
+   Generated Result Cards
+   ========================= */
+
+.gradio-container .result-card .brand-name,
+.gradio-container .result-card .brand-title {
+    color: #14381F !important;
+    -webkit-text-fill-color: #14381F !important;
+}
+
+
+/* =========================
+   General Links
+   ========================= */
+.gradio-container a {
+    color: #14381F !important;
+}
+
+
+/* =========================
+   Footer / Secondary Text
+   ========================= */
+.gradio-container .footer,
+.gradio-container .footer-text {
+    color: #C3DDBA !important;
 }
 """
 with gr.Blocks(
