@@ -95,12 +95,13 @@ def _package_to_html(package: dict) -> str:
     color_names = html.escape(" | ".join(str(l) for l in labels[:5]), quote=True)
 
     return (
-        "<div style='text-align:center; padding:16px; border:1px solid #a5d6a7; "
+        "<div class='result-card' style='text-align:center; padding:16px; border:1px solid #a5d6a7; "
         "border-radius:12px; background:rgba(255,255,255,0.75);'>"
-        f"<h2 style='margin:0;'>{brand_name}</h2>"
-        f"<p style='color:#555; font-style:italic; margin:8px 0;'>{tagline}</p>"
+        f"<h2 class='brand-name' style='margin:0; color:#0D1F16 !important; "
+        f"-webkit-text-fill-color:#0D1F16 !important; font-weight:800;'>{brand_name}</h2>"
+        f"<p style='color:#2b3a2f !important; font-style:italic; margin:8px 0;'>{tagline}</p>"
         f"<div>{swatches}</div>"
-        f"<p style='font-size:12px; color:#777; margin-top:8px;'>{color_names}</p>"
+        f"<p style='font-size:12px; color:#3d4f42 !important; margin-top:8px;'>{color_names}</p>"
         "</div>"
     )
 
