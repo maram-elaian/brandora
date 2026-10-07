@@ -288,18 +288,20 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container {
     background: linear-gradient(
-        180deg,
-        #0f2a1d 45%,
-        #375534 45%,
-        #6b9071 5%
+        135deg,
+        #071a12 0%,
+        #0d2418 25%,
+        #163522 50%,
+        #27472f 75%,
+        #3f6045 100%
     ) !important;
 
-    --body-text-color: #e3eed4 !important;
-    --body-text-color-subdued: #3d5c40 !important;
-    --block-label-text-color: #e3eed4 !important;
-    --block-title-text-color: #e3eed4 !important;
-    --checkbox-label-text-color: #e3eed4 !important;
-    --input-placeholder-color: #777777 !important;
+    --body-text-color: #f1f5ed !important;
+    --body-text-color-subdued: #d0dccf !important;
+    --block-label-text-color: #f1f5ed !important;
+    --block-title-text-color: #f1f5ed !important;
+    --checkbox-label-text-color: #f1f5ed !important;
+    --input-placeholder-color: #9eaaa0 !important;
 }
 
 
@@ -317,9 +319,10 @@ CUSTOM_CSS = """
 
     background: linear-gradient(
         90deg,
-        #1b5e20,
-        #43a047,
-        #66bb6a
+        #dcebd8 0%,
+        #ffffff 35%,
+        #b8d6b8 65%,
+        #eef6ea 100%
     );
 
     -webkit-background-clip: text;
@@ -330,7 +333,7 @@ CUSTOM_CSS = """
 }
 
 #brand-title p {
-    color: #0f2a1d !important;
+    color: #e3eedf !important;
     font-size: 1.2rem;
 }
 
@@ -342,7 +345,7 @@ CUSTOM_CSS = """
 .gradio-container .block-label,
 .gradio-container .label-wrap,
 .gradio-container .block-title {
-    color: #1b5e20 !important;
+    color: #f1f5ed !important;
 }
 
 
@@ -352,10 +355,12 @@ CUSTOM_CSS = """
 .gradio-container input,
 .gradio-container textarea,
 .gradio-container select {
-    background-color: #000000 !important;
+    background-color: #07100b !important;
 
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
+
+    border-color: #54745b !important;
 }
 
 
@@ -374,8 +379,8 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container input::placeholder,
 .gradio-container textarea::placeholder {
-    color: #777777 !important;
-    -webkit-text-fill-color: #777777 !important;
+    color: #9eaaa0 !important;
+    -webkit-text-fill-color: #9eaaa0 !important;
     opacity: 1 !important;
 }
 
@@ -385,7 +390,7 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container .wrap label,
 .gradio-container .wrap label span {
-    color: #1b5e20 !important;
+    color: #f1f5ed !important;
 }
 
 
@@ -394,9 +399,12 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container .dropdown,
 .gradio-container .dropdown input {
-    background-color: #000000 !important;
+    background-color: #07100b !important;
+
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
+
+    border-color: #54745b !important;
 }
 
 
@@ -409,7 +417,7 @@ CUSTOM_CSS = """
 
 
 /* =========================
-   Keep Markdown Text Green
+   Markdown / Large Headings
    ========================= */
 .gradio-container .prose,
 .gradio-container .prose h1,
@@ -418,10 +426,9 @@ CUSTOM_CSS = """
 .gradio-container .prose h4,
 .gradio-container .prose h5,
 .gradio-container .prose h6 {
-    color: #1b5e20 !important;
+    color: #f1f5ed !important;
 }
 """
-
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="green",
     secondary_hue="emerald",
