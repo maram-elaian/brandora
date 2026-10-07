@@ -1,37 +1,49 @@
 # 🎨 Brandora
 
-An AI-powered system that generates a complete visual brand identity — including a brand name, slogan, color palette, typography recommendations, and logo — from a simple textual description.
+An AI-powered system that generates a complete visual brand identity (brand name, slogan, color palette, typography direction, and logo) from a short textual description, and exports it as a Brand Kit PDF.
 
-**Field Training Project** — The primary goal is to demonstrate the ability to build an end-to-end AI system combining text and image generation using fully free resources, supported by a documented model comparison methodology.
+**Field Training Project**: demonstrates an end-to-end AI system combining text and image generation using fully free resources, supported by a documented model comparison methodology and a quantitative evaluation.
 
 ---
 
 ## ✨ How It Works
 
-1. The user provides a brief describing the brand's **industry, target audience, personality, tone, and objective**.
-2. A text model, **Qwen3-8B**, generates the brand name, slogan, color palette, and typography recommendations.
-3. An image model, **FLUX.1-schnell**, generates a logo mark based on the visual style extracted from the generated brand specification.
-4. The complete result is presented through an interactive **Gradio** interface.
+1. The user describes the brand: **industry, target audience, purpose, personality, and tone**.
+2. **Qwen3-8B** generates **three brand proposals**, each with a name, slogan, color palette, typography direction, visual style, and a concrete logo concept.
+3. The user compares the proposals and **chooses one**.
+4. **FLUX.1-schnell** generates a logo from the chosen concept, and the image is recolored to the exact brand palette.
+5. The user downloads a complete **Brand Kit PDF**.
+
+The interface is built with **Gradio**.
 
 ---
 
 ## 🧠 Models Used
 
-| Task                                   | Model                                             | Why                                                                                                   |
-| -------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Text generation (name, slogan, colors) | **Qwen3-8B** — self-hosted, 4-bit quantized       | Apache 2.0 license, unrestricted, and achieved strong performance across all 30 test cases            |
-| Logo generation                        | **FLUX.1-schnell** — self-hosted, 4-bit quantized | Open-weight model with lower resource requirements and faster generation than the tested alternatives |
+| Task | Model | Why |
+| ---- | ----- | --- |
+| Text generation | **Qwen3-8B** (4-bit quantized) | Apache 2.0 license; consistently produced valid structured JSON across all 30 test cases |
+| Logo generation | **FLUX.1-schnell** (4-bit quantized) | Open weights, low resource requirements, fast generation |
+| Evaluation | **CLIP ViT-B/32** | Measures how well each logo matches its brand concept |
 
 ### Models Tested and Rejected
 
-Several models were evaluated during development and documented in [`docs/methodology.md`](docs/methodology.md):
+Documented in [`docs/methodology.md`](docs/methodology.md):
 
-* **LiquidAI/LFM2.5-2.6B** — Failed to consistently produce valid structured JSON.
-* **Stable Diffusion 3 Medium** — Encountered a technical compatibility issue in the development environment.
-* **Qwen-Image-2.1** — Technically successful, but not selected as the final primary model.
-* **PlaygroundV2.5** — Technically successful, but not selected as the final primary model.
+* **LiquidAI/LFM2.5-2.6B**: failed to consistently produce valid structured JSON.
+* **Stable Diffusion 3 Medium**: technical compatibility issue in the development environment.
+* **Qwen-Image-2.1**: technically successful, but not selected as the primary model.
+* **PlaygroundV2.5**: technically successful, but not selected as the primary model.
 
-The final model selection was based on technical compatibility, output quality, resource requirements, and performance across the standardized test cases.
+---
+
+## 🔧 Key Technical Features
+
+* **GPU memory management**: Qwen is fully unloaded before FLUX runs, so both models fit on a single 16 GB GPU. FLUX uses 4-bit quantization, CPU offload, and VAE tiling.
+* **Concept-driven logo prompts**: Qwen outputs a concrete `logo_concept` and `logo_shape_language`, which produce more distinctive logos than generic style descriptions.
+* **Palette enforcement**: generated logos are recolored to the exact palette chosen by Qwen, because FLUX does not reliably follow color instructions.
+* **Diversity control**: banned generic words, duplicate names, and similar name prefixes are rejected across the three proposals.
+* **CLIP-based evaluation** of logo-to-concept fidelity (see below).
 
 ---
 
@@ -39,45 +51,40 @@ The final model selection was based on technical compatibility, output quality, 
 
 ```text
 brandora/
-├── app.py                    # Entry point — Gradio interface
-├── scripts/
-│   └── run_text_gen.py       # Runs Qwen3-8B as a separate process for memory management
+├── app.py                     # Entry point: Gradio interface
+├── generate_samples.py        # Generates a sample set (packages + logos) into results/
+├── evaluate_folder.py         # Evaluates results/ with CLIP and writes a summary
+├── requirements.txt
 ├── src/
-│   ├── text_generator.py     # Loads and calls Qwen3-8B
-│   ├── brand_package.py      # Creative prompt and brand specification generation
-│   ├── name_generator.py     # Extracts the brand name from the specification
-│   ├── slogan_generator.py   # Extracts the slogan from the specification
-│   ├── logo_generator.py     # Loads and calls FLUX.1-schnell
-│   └── logo_prompt.py        # Builds the image-generation prompt from the specification
-│   └── evaluator.py          # Calculates color contrast using WCAG criteria
+│   ├── text_generator.py      # Loads, calls, and unloads Qwen3-8B
+│   ├── brand_package.py       # Prompting and generation of brand packages
+│   ├── logo_prompt.py         # Builds the logo prompt from the brand package
+│   ├── logo_generator.py      # Loads and calls FLUX.1-schnell; palette enforcement
+│   ├── brand_kit_export.py    # Composes the Brand Kit image/PDF
+│   ├── clip_eval.py           # CLIP-based evaluation metrics
+│   ├── name_generator.py      # Extracts the brand name from the specification
+│   ├── slogan_generator.py    # Extracts the slogan from the specification
+│   └── evaluator.py           # Color contrast using WCAG criteria
 ├── data/
-│   └── test_briefs.json      # 30 standardized test cases for model comparison
-├── notebooks/                # Kaggle notebooks for testing individual models
+│   └── test_briefs.json       # 30 standardized test cases for model comparison
+├── results/                   # Generated samples and CLIP evaluation outputs
+├── notebooks/                 # Kaggle notebooks for testing individual models
 ├── docs/
-│   └── methodology.md        # Model comparison methodology and rejection decisions
+│   └── methodology.md         # Model comparison methodology and rejection decisions
 └── evaluation/
-    └── rubric.md             # Human evaluation criteria
+    └── rubric.md              # Human evaluation criteria
 ```
 
 ---
 
 ## 🚀 Running the Project on Kaggle
 
-Brandora requires a GPU and was developed and tested on a **Tesla T4 with 16 GB VRAM**. Running the full system locally requires a GPU with sufficient VRAM.
+Brandora requires a GPU and was developed on a **Tesla T4 (16 GB VRAM)**.
 
 ### 1. Clone the Repository
 
-Store your GitHub Personal Access Token as a Kaggle Secret named `GITHUB_TOKEN`, then run:
-
 ```python
-from kaggle_secrets import UserSecretsClient
-
-user_secrets = UserSecretsClient()
-GITHUB_TOKEN = user_secrets.get_secret("GITHUB_TOKEN")
-
-repo_url = f"https://{GITHUB_TOKEN}@github.com/maram-elaian/brandora.git"
-!git clone --depth 1 {repo_url} /kaggle/working/brandora_repo
-
+!git clone https://github.com/maram-elaian/brandora.git /kaggle/working/brandora_repo
 %cd /kaggle/working/brandora_repo
 ```
 
@@ -89,14 +96,13 @@ repo_url = f"https://{GITHUB_TOKEN}@github.com/maram-elaian/brandora.git"
 
 ### 3. Configure the Hugging Face Token
 
-A Hugging Face token is required to download **FLUX.1-schnell**.
-
-First, accept the model's access terms on Hugging Face, then store your token as a Kaggle Secret named `HF_TOKEN`.
+A Hugging Face token is required to download **FLUX.1-schnell**. Accept the model's terms on Hugging Face, then store your token as a Kaggle Secret named `HF_TOKEN`.
 
 ```python
 import os
+from kaggle_secrets import UserSecretsClient
 
-os.environ["HF_TOKEN"] = user_secrets.get_secret("HF_TOKEN")
+os.environ["HF_TOKEN"] = UserSecretsClient().get_secret("HF_TOKEN")
 ```
 
 ### 4. Launch the Interface
@@ -105,9 +111,9 @@ os.environ["HF_TOKEN"] = user_secrets.get_secret("HF_TOKEN")
 !python app.py
 ```
 
-A public Gradio URL will be generated. Open the URL in any browser to access the application.
+A public Gradio URL is printed. It stays valid while the notebook is running (Kaggle share links expire after one week).
 
-> **⏱️ Generation Time:** Each generation currently takes approximately **8 minutes**. Qwen3-8B and FLUX are loaded from scratch for each request to prevent GPU memory conflicts when running both models on a single 16 GB GPU. This is a known and intentional resource-management limitation, not an application error.
+> **⏱️ Generation time:** The first run is the slowest because the models must be downloaded and loaded. Qwen is loaded for text generation and then unloaded to free GPU memory for FLUX, which stays cached after its first load. [Add your measured times here.]
 
 ---
 
@@ -116,30 +122,49 @@ A public Gradio URL will be generated. Open the URL in any browser to access the
 * **Minimum VRAM:** 16 GB
 * **Tested GPU:** NVIDIA Tesla T4
 * **Quantization:** 4-bit using `bitsandbytes`
-* Both Qwen3-8B and FLUX.1-schnell use 4-bit quantization to fit within the available VRAM.
 
 ---
 
-## 📊 Evaluation Methodology
+## 📊 Evaluation
 
-All tested models were evaluated using the **same 30 standardized brand briefs** stored in [`data/test_briefs.json`](data/test_briefs.json).
+### Model selection
 
-The experiments use consistent test cases and evaluation criteria to make model comparisons more meaningful.
+All candidate models were evaluated on the **same 30 standardized briefs** in [`data/test_briefs.json`](data/test_briefs.json). Details are in [`docs/methodology.md`](docs/methodology.md) and [`evaluation/rubric.md`](evaluation/rubric.md).
 
-Detailed experiment logs, technical issues, solutions, model comparisons, and rejection decisions are documented in:
+### CLIP evaluation of generated logos
 
-* [`docs/methodology.md`](docs/methodology.md)
-* [`evaluation/rubric.md`](evaluation/rubric.md)
+Generate a sample set and evaluate it:
 
-The evaluation combines technical validation with human assessment of the generated brand outputs.
+```bash
+python generate_samples.py     # writes results/<brief>/<n>/{package.json, logo_raw.png, logo.png}
+python evaluate_folder.py      # writes results/report.csv and results/summary.md
+```
+
+Metrics: **concept score** (logo vs. its concept), **margin** (own concept vs. other brands' concepts), **retrieval accuracy** (how often the logo's own concept is the best match), **text-free score**, and **palette distance**.
+
+Results on 21 logos (random-chance retrieval accuracy = 0.048):
+
+| Version | Concept score | Margin | Retrieval acc. | Text-free | Palette dist. |
+|---|---|---|---|---|---|
+| FLUX raw | 0.306 | +0.075 | 0.571 | 0.803 | 11.4 |
+| After palette | 0.303 | +0.067 | 0.619 | 0.797 | 8.7 |
+
+CLIP identified the correct brand for roughly 57% to 62% of logos among 21 candidates (about 12 to 13 times above chance), and palette enforcement reduced color deviation by about 24% without noticeably changing semantic fidelity.
+
+**Limitations:** CLIP measures semantic alignment, not aesthetics or originality, and the sample is small. It should be complemented by human evaluation.
 
 ---
 
 ## 🔜 Future Improvements
 
-The following improvements are planned but are **outside the scope of the current delivery**:
+* Human evaluation study with multiple raters.
+* Gallery of several logo variants per proposal.
+* Public deployment as a Hugging Face Space (ZeroGPU), keeping models resident in memory for faster responses.
+* Optional alternative image model such as **PlaygroundV2.5**.
+* Vector (SVG) logo export.
 
-* Add an option to select an alternative image-generation model such as **PlaygroundV2.5**.
-* Separate text generation from logo generation: first present three brand name/color proposals, then generate the logo after the user selects one.
-* Export a complete **Brand Kit as PDF**.
-* Improve response time by keeping models loaded in memory instead of reloading them for every request.
+---
+
+## 📄 License
+
+MIT License. See [`LICENSE`](LICENSE).
