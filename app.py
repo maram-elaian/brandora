@@ -288,17 +288,17 @@ CUSTOM_CSS = """
    ========================= */
 .gradio-container {
     background: linear-gradient(
-        135deg,
-        #e8f5e9 0%,
-        #c8e6c9 45%,
-        #a5d6a7 100%
+        90deg,
+        #0f2a1d 100%,
+        #375534 45%,
+        #6b9071 5%
     ) !important;
 
     --body-text-color: #1b3d1f !important;
     --body-text-color-subdued: #3d5c40 !important;
-    --block-label-text-color: #1b5e20 !important;
-    --block-title-text-color: #1b5e20 !important;
-    --checkbox-label-text-color: #1b5e20 !important;
+    --block-label-text-color: #e3eed4 !important;
+    --block-title-text-color: #e3eed4 !important;
+    --checkbox-label-text-color: #e3eed4 !important;
     --input-placeholder-color: #777777 !important;
 }
 
@@ -330,7 +330,7 @@ CUSTOM_CSS = """
 }
 
 #brand-title p {
-    color: #2e7d32 !important;
+    color: #0f2a1d !important;
     font-size: 1.2rem;
 }
 
@@ -453,7 +453,8 @@ with gr.Blocks(
         )
         personality = gr.CheckboxGroup(
             choices=["modern", "playful", "elegant", "bold", "warm", "minimalist",
-                     "energetic", "trustworthy", "luxurious", "friendly", "rebellious", "calm"],
+                     "energetic", "trustworthy", "luxurious", "friendly", "rebellious", "calm","fresh","creative",
+                     "cozy","edgy"],
             label="الشخصية (اختار أكتر من وحدة)",
         )
         tone = gr.Dropdown(
