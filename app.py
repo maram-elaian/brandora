@@ -303,17 +303,6 @@ CUSTOM_CSS = """
     font-size: 1.2rem;
 }
 .gradio-container {
-    --block-background-fill: rgba(255, 255, 255, 0.7) !important;
-    --input-background-fill: #f1f8e9 !important;
-    --input-border-color: #a5d6a7 !important;
-    --input-border-color-focus: #43a047 !important;
-    --checkbox-background-color-selected: #43a047 !important;
-    --checkbox-border-color-selected: #43a047 !important;
-    --button-primary-background-fill: linear-gradient(90deg, #2e7d32, #43a047) !important;
-    --button-primary-background-fill-hover: linear-gradient(90deg, #1b5e20, #2e7d32) !important;
-    --color-accent: #43a047 !important;
-    
-    .gradio-container {
     background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 45%, #a5d6a7 100%) !important;
     --body-text-color: #1b3d1f !important;
     --body-text-color-subdued: #3d5c40 !important;
@@ -322,6 +311,8 @@ CUSTOM_CSS = """
     --input-placeholder-color: #6b8f6e !important;
     --checkbox-label-text-color: #1b3d1f !important;
 }
+    
+    
 }
 """
 
